@@ -1,15 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, use } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { AuthContext } from "./Provider/AuthProvider";
+
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { AuthContext } from "../Context/AuthContext";
+// import { AuthContext } from "../Context/AuthProvider";
 
 const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [emailForReset, setEmailForReset] = useState("");
-  const { signIn, googleLogin } = useContext(AuthContext);
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    signIn(email, password)
+    signInUser(email, password)
       .then((result) => {
         toast.success(`Welcome back, ${result.user.displayName || "User"}!`);
         setTimeout(() => navigate(location.state?.from || "/"), 1500);
@@ -31,7 +32,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    googleLogin()
+    signInWithGoogle()
       .then((user) => {
         toast.success(`Logged in as ${user.displayName || "User"} via Google!`);
         setTimeout(() => navigate(location.state?.from || "/"), 1500);
@@ -61,8 +62,6 @@ const Login = () => {
                   type="email"
                   className="input input-bordered w-full"
                   placeholder="Email"
-                  value={emailForReset}
-                  onChange={(e) => setEmailForReset(e.target.value)}
                   required
                 />
 
@@ -92,16 +91,6 @@ const Login = () => {
               </fieldset>
             </form>
 
-            <p className="mt-2 text-left">
-              <Link
-                className="text-secondary hover:underline"
-                to="/auth/forgot-password"
-                state={{ email: emailForReset }}
-              >
-                Forgot Password?
-              </Link>
-            </p>
-
             <div className="divider">OR</div>
 
             <button
@@ -113,7 +102,7 @@ const Login = () => {
 
             <p className="mt-4 text-center">
               Don't Have An Account?{" "}
-              <Link className="text-secondary" to="/auth/register">Register</Link>
+              <Link className="text-primary" to="/auth/register">Register</Link>
             </p>
           </div>
         </div>

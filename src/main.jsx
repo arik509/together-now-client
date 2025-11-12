@@ -9,7 +9,8 @@ import Home from "./Pages/Home.jsx";
 import UpcomingEvents from "./Pages/UpcomingEvents.jsx";
 import AuthLayout from "./Layouts/AuthLayout.jsx";
 import Login from "./Pages/Login.jsx";
-import Registration from "./Pages/Registration.jsx";
+import Registration from "./Pages/Register.jsx";
+import AuthProvider from "./Context/AuthProvider.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,10 +22,10 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: '/upcoming-events',
-        Component: UpcomingEvents
-      }
-    ]
+        path: "/upcoming-events",
+        Component: UpcomingEvents,
+      },
+    ],
   },
   {
     path: "/auth",
@@ -36,18 +37,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth/register",
-        element: <Registration></Registration>
-      },
-      {
-        path: "/auth/forgot-password",
-        element: <ForgotPassword></ForgotPassword>,
+        element: <Registration></Registration>,
       },
     ],
-  }
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>
 );

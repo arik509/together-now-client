@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../assets/Together Now.png";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { Sun, Moon } from "lucide-react";
 
 const Navbar = () => {
@@ -99,7 +99,7 @@ const Navbar = () => {
           </button>
 
           <button className="button">
-            <span className="button-content">Log In</span>
+            <Link to="/auth/login" className="button-content">Log In</Link>
           </button>
         </div>
       </div>
