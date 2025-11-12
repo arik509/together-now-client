@@ -7,6 +7,9 @@ import { RouterProvider } from "react-router/dom";
 import RootLayout from "./Layouts/RootLayout.jsx";
 import Home from "./Pages/Home.jsx";
 import UpcomingEvents from "./Pages/UpcomingEvents.jsx";
+import AuthLayout from "./Layouts/AuthLayout.jsx";
+import Login from "./Pages/Login.jsx";
+import Registration from "./Pages/Registration.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +25,24 @@ const router = createBrowserRouter([
         Component: UpcomingEvents
       }
     ]
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout></AuthLayout>,
+    children: [
+      {
+        path: "/auth/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/auth/register",
+        element: <Registration></Registration>
+      },
+      {
+        path: "/auth/forgot-password",
+        element: <ForgotPassword></ForgotPassword>,
+      },
+    ],
   }
 ]);
 
