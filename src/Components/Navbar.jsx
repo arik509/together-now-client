@@ -1,8 +1,10 @@
 import React from "react";
-import logo from "../assets/Together Now.png"
+import logo from "../assets/Together Now.png";
 import { NavLink } from "react-router";
 
 const Navbar = () => {
+  const activeClass = "font-bold text-green-800";
+
   return (
     <div className="bg-[#d9f7be]">
       <div className="navbar w-11/12 mx-auto p-2 md:p-3 lg:p-6">
@@ -30,30 +32,54 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a>Item 1</a>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <a>Item 3</a>
+                <NavLink to="/upcoming-events">UpComing Events</NavLink>
               </li>
             </ul>
           </div>
           <div className="flex gap-2 items-center">
-            <img className="w-10 lg:w-[50px] " src={logo} alt="" />
-          <NavLink to="/" className="lg:text-2xl font-bold">Together <span className="text-green-800">Now</span> </NavLink>
+            <img className="w-10 lg:w-[50px]" src={logo} alt="" />
+            <NavLink to="/" className="lg:text-2xl font-bold">
+              Together <span className="text-green-800">Now</span>
+            </NavLink>
           </div>
         </div>
+
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className=" menu-horizontal px-1 flex gap-6">
             <li>
-              <a>Item 1</a>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `lg:text-[20px] relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-green-800 after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                    isActive ? "font-bold text-green-800 after:w-full" : ""
+                  }`
+                }
+              >
+                Home
+              </NavLink>
             </li>
             <li>
-              <a>Item 3</a>
+              <NavLink
+                to="/upcoming-events"
+                className={({ isActive }) =>
+                  `lg:text-[20px] relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-green-800 after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                    isActive ? "font-bold text-green-800 after:w-full" : ""
+                  }`
+                }
+              >
+                Upcoming Events
+              </NavLink>
             </li>
           </ul>
         </div>
+
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <button class="button">
+            <span class="button-content">Log in </span>
+          </button>
         </div>
       </div>
     </div>
