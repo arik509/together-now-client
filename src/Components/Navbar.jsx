@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../assets/Together Now.png";
 import { NavLink } from "react-router";
+import { Sun, Moon } from "lucide-react";
 
 const Navbar = () => {
-  const activeClass = "font-bold text-green-800";
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    document.querySelector("html").setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
 
   return (
-    <div className="bg-[#d9f7be]">
+    <div className="bg-secondary">
       <div className="navbar w-11/12 mx-auto p-2 md:p-3 lg:p-6">
         <div className="navbar-start">
           <div className="dropdown">
@@ -18,13 +28,12 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {" "}
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
+                />
               </svg>
             </div>
             <ul
@@ -48,7 +57,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-center hidden lg:flex">
-          <ul className=" menu-horizontal px-1 flex gap-6">
+          <ul className="menu-horizontal px-1 flex gap-6">
             <li>
               <NavLink
                 to="/"
@@ -76,9 +85,21 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="navbar-end">
-          <button class="button">
-            <span class="button-content">Log in </span>
+        <div className="navbar-end flex items-center gap-4">
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full border border-green-700 hover:bg-green-100 dark:hover:bg-green-500 cursor-pointer transition"
+            title="Toggle theme"
+          >
+            {theme === "light" ? (
+              <Moon className="w-5 h-5 text-green-800" />
+            ) : (
+              <Sun className="w-5 h-5 text-yellow-400" />
+            )}
+          </button>
+
+          <button className="button">
+            <span className="button-content">Log In</span>
           </button>
         </div>
       </div>
