@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import logo from "../assets/Together Now.png";
 import { Link, NavLink } from "react-router";
 import { Sun, Moon } from "lucide-react";
+import { AuthContext } from "../Context/AuthContext";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  const { user, signOutUser } = use(AuthContext);
 
   useEffect(() => {
     document.querySelector("html").setAttribute("data-theme", theme);
@@ -13,6 +16,16 @@ const Navbar = () => {
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const handleLogout = () => {
+    signOutUser()
+      .then(() => {
+        console.log("User logged out");
+      })
+      .catch((error) => {
+        console.error("Logout error: ", error);
+      });
   };
 
   return (
@@ -98,9 +111,15 @@ const Navbar = () => {
             )}
           </button>
 
-          <button className="button">
-            <Link to="/auth/login" className="button-content">Log In</Link>
-          </button>
+          {user ? (
+            <button onClick={handleLogout} className="button">
+              <span className="button-content cursor-pointer">Log Out</span>
+            </button>
+          ) : (
+            <button className="button">
+              <Link to="/auth/login" className="button-content">Log In</Link>
+            </button>
+          )}
         </div>
       </div>
     </div>
