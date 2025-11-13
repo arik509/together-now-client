@@ -1,6 +1,6 @@
 # Together Now
 
-**Live Site:** [https://your-live-site-url.com](https://your-live-site-url.com)
+**Live Site: https://together-now-4c3e3.web.app/ 
 
 Together Now is a social & environmental action platform where users can create, discover, and participate in impactful community events.
 
