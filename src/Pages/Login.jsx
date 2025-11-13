@@ -85,7 +85,7 @@ const Login = () => {
 
                 {error && <p className="text-red-600 mt-2">{error}</p>}
 
-                <button type="submit" className="btn btn-neutral mt-4 w-full">
+                <button type="submit" className="btn text-secondary btn-neutral mt-4 w-full">
                   Login
                 </button>
               </fieldset>

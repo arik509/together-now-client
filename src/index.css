@@ -10,7 +10,7 @@
   default: true;
   --color-primary: green;
   --color-secondary: #d9f7be;
-  --color-base: #d9f7be; 
+  --color-base-100: #d9f7be; 
 }
 
 
