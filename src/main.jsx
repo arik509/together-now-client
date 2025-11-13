@@ -13,6 +13,8 @@ import Login from "./Pages/Login.jsx";
 import Registration from "./Pages/Register.jsx";
 import AuthProvider from "./Context/AuthProvider.jsx";
 import CreateEvent from "./Pages/CreateEvent.jsx";
+import JoinedEvents from "./Pages/JoinedEvents.jsx";
+import ManageEvents from "./Pages/ManageEvents.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
         path: "/create-event",
         element: <CreateEvent></CreateEvent>,
       },
+      {
+        path: "/joined-events",
+        element: <JoinedEvents></JoinedEvents>
+      },
+      {
+        path: "/manage-events",
+        element: <ManageEvents></ManageEvents>
+      }
     ],
   },
   {
