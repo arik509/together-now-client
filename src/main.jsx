@@ -11,6 +11,7 @@ import AuthLayout from "./Layouts/AuthLayout.jsx";
 import Login from "./Pages/Login.jsx";
 import Registration from "./Pages/Register.jsx";
 import AuthProvider from "./Context/AuthProvider.jsx";
+import CreateEvent from "./Pages/CreateEvent.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,12 +20,16 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Home,
+        element: <Home></Home>
       },
       {
         path: "/upcoming-events",
-        Component: UpcomingEvents,
+        element: <UpcomingEvents></UpcomingEvents>
       },
+      {
+        path: "/create-event",
+        element: <CreateEvent></CreateEvent>
+      }
     ],
   },
   {

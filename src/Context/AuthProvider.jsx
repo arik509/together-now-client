@@ -37,7 +37,7 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  // ✅ Update user profile
+ 
   const updateUser = (profile) => {
     if (auth.currentUser) {
       return updateProfile(auth.currentUser, profile);

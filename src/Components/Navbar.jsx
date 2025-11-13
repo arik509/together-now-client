@@ -1,18 +1,33 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import logo from "../assets/Together Now.png";
 import { Link, NavLink } from "react-router";
 import { Sun, Moon } from "lucide-react";
+import userIcon from "../assets/download.png";
 import { AuthContext } from "../Context/AuthContext";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
-  const { user, signOutUser } = use(AuthContext);
+  const { user, signOutUser } = React.useContext(AuthContext);
 
   useEffect(() => {
     document.querySelector("html").setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -26,11 +41,12 @@ const Navbar = () => {
       .catch((error) => {
         console.error("Logout error: ", error);
       });
+    setDropdownOpen(false);
   };
 
   return (
     <div className="bg-secondary">
-      <div className="navbar w-11/12 mx-auto p-2 md:p-3 lg:p-6">
+      <div className="navbar w-11/12 mx-auto p-0 md:p-3 lg:p-6">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -51,7 +67,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
             >
               <li>
                 <NavLink to="/">Home</NavLink>
@@ -112,12 +128,62 @@ const Navbar = () => {
           </button>
 
           {user ? (
-            <button onClick={handleLogout} className="button">
-              <span className="button-content cursor-pointer">Log Out</span>
-            </button>
+            <>
+              <div className="relative" ref={dropdownRef}>
+                <div
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  title={user.displayName || "User"}
+                  className="cursor-pointer"
+                >
+                  <img
+                    src={user.photoURL || userIcon}
+                    alt={user.displayName || "User"}
+                    className="w-10 h-10 rounded-full border-2 border-green-700 dark:border-green-400"
+                  />
+                </div>
+
+                {dropdownOpen && (
+                  <ul className="absolute right-0 mt-2 w-48 bg-base-100 border border-green-700 dark:border-green-400 rounded shadow-lg z-50">
+                    <li>
+                      <Link
+                        to="/create-event"
+                        className="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-700"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        Create Event
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/manage-events"
+                        className="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-700"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        Manage Events
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/joined-events"
+                        className="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-700"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        Joined Events
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </div>
+
+              <button onClick={handleLogout} className="button">
+                <span className="button-content cursor-pointer">Log Out</span>
+              </button>
+            </>
           ) : (
             <button className="button">
-              <Link to="/auth/login" className="button-content">Log In</Link>
+              <Link to="/auth/login" className="button-content">
+                Log In
+              </Link>
             </button>
           )}
         </div>

@@ -49,7 +49,7 @@ const Footer = () => (
             </div>
             <div className="text-green-700 dark:text-green-300">
               <h3 className="font-bold mb-2">Contact Info</h3>
-              <ul className="space-y-1 text-green-900 dark:text-green-200">
+              <ul className="space-y-1 text-[14px] md:text-[16px] text-green-900 dark:text-green-200">
                 <li className="flex items-center gap-2">
                   <MapPin size={16}></MapPin> Dhaka, Bangladesh
                 </li>
