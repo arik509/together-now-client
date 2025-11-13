@@ -1,63 +1,115 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
-import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router";
-import { FaGoogle } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const { signInWithGoogle, createUser, setUser, updateUser } = useContext(AuthContext);
+  const { signInWithGoogle, createUser, setUser, updateUser } =
+    useContext(AuthContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const form = e.target;
-    const name = form.name.value;
-    const photo = form.photo.value;
-    const email = form.email.value;
+    const name = form.name.value.trim();
+    const photo = form.photo.value.trim();
+    const email = form.email.value.trim();
     const password = form.password.value;
 
-    // Password validation
+    // Password validation with SweetAlert2
+    if (!password || password.trim().length < 6) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must be at least 6 characters long"
+      });
+      setLoading(false);
+      return;
+    }
     if (!/[A-Z]/.test(password)) {
-      toast.error("Password must contain at least 1 uppercase letter");
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must contain at least 1 uppercase letter"
+      });
+      setLoading(false);
       return;
     }
     if (!/[a-z]/.test(password)) {
-      toast.error("Password must contain at least 1 lowercase letter");
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must contain at least 1 lowercase letter"
+      });
+      setLoading(false);
       return;
     }
-    if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long");
+    if (!/[0-9]/.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password must contain at least 1 digit"
+      });
+      setLoading(false);
+      return;
+    }
+    if (/[^a-zA-Z0-9!@#$%^&*]/.test(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password",
+        text: "Password contains invalid special characters"
+      });
+      setLoading(false);
       return;
     }
 
-    createUser(email, password)
-      .then((res) => {
-        const user = res.user;
-        updateUser({ displayName: name, photoURL: photo })
-          .then(() => {
-            setUser({ ...user, displayName: name, photoURL: photo });
-            toast.success("Sign Up Successful!");
-            setTimeout(() => navigate("/"), 1500);
-          })
-          .catch((error) => {
-            toast.error(error.message);
-          });
-      })
-      .catch((error) => {
-        toast.error(error.message);
+    try {
+      const res = await createUser(email, password);
+      const user = res.user;
+      await updateUser({ displayName: name, photoURL: photo });
+      setUser({ ...user, displayName: name, photoURL: photo });
+      Swal.fire({
+        icon: "success",
+        title: "Sign Up Successful!",
+        showConfirmButton: false,
+        timer: 1500
       });
+      setLoading(false);
+      setTimeout(() => navigate("/"), 1700);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Registration Failed",
+        text: error.message
+      });
+      setLoading(false);
+    }
   };
 
   const handleGoogleSignIn = () => {
+    setLoading(true);
     signInWithGoogle()
       .then((result) => {
-        toast.success(
-          `Welcome ${result.user.displayName || "User"}! Logged in with Google.`
-        );
-        setTimeout(() => navigate("/"), 1500);
+        Swal.fire({
+          icon: "success",
+          title: `Welcome ${result.user.displayName || "User"}! Logged in with Google.`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setLoading(false);
+        setTimeout(() => navigate("/"), 1700);
       })
       .catch((error) => {
-        toast.error(error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Google Sign In Failed",
+          text: error.message
+        });
+        setLoading(false);
       });
   };
 
@@ -67,39 +119,70 @@ const Register = () => {
         <h1 className="text-3xl font-bold text-center my-4">Register Now</h1>
         <div className="card-body">
           <form onSubmit={handleRegister}>
-            <fieldset className="fieldset">
-              <label className="label">Name</label>
-              <input name="name" type="text" className="input" placeholder="Your Name" required />
+            <label className="label">Name</label>
+            <input
+              name="name"
+              type="text"
+              className="input"
+              placeholder="Your Name"
+              required
+            />
 
-              <label className="label">Photo URL</label>
-              <input name="photo" type="text" className="input" placeholder="Your Photo URL" required />
+            <label className="label">Photo URL</label>
+            <input
+              name="photo"
+              type="text"
+              className="input"
+              placeholder="Your Photo URL"
+              required
+            />
 
-              <label className="label">Email</label>
-              <input name="email" type="email" className="input" placeholder="Email" required />
+            <label className="label">Email</label>
+            <input
+              name="email"
+              type="email"
+              className="input"
+              placeholder="Email"
+              required
+            />
 
-              <label className="label">Password</label>
-              <input name="password" type="password" className="input" placeholder="Password" required />
+            <label className="label">Password</label>
+            <input
+              name="password"
+              type="password"
+              className="input"
+              placeholder="Password"
+              required
+            />
 
-              <button type="submit" className="btn btn-primary mt-4">Register</button>
-
-              <div className="text-accent my-2 font-bold text-center text-[20px]">Or,</div>
-
-              <button
-                type="button"
-                onClick={handleGoogleSignIn}
-                className="btn btn-outline btn-primary"
-              >
-               <FaGoogle className="mr-2"></FaGoogle> Sign up with Google
-              </button>
-
-              <p className="mt-2 text-sm text-center">
-                Already Have An Account?{" "}
-                <Link className="text-primary font-semibold" to="/auth/login">
-                  Login
-                </Link>
-              </p>
-            </fieldset>
+            <button
+              type="submit"
+              className="btn btn-primary mt-4"
+              disabled={loading}
+            >
+              {loading ? "Registering..." : "Register"}
+            </button>
           </form>
+
+          <div className="text-accent my-2 font-bold text-center text-[20px]">
+            Or,
+          </div>
+
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            className="btn btn-outline btn-primary"
+            disabled={loading}
+          >
+            <FcGoogle className="mr-2" /> Sign up with Google
+          </button>
+
+          <p className="mt-2 text-sm text-center">
+            Already Have An Account?{" "}
+            <Link className="text-primary font-semibold" to="/auth/login">
+              Login
+            </Link>
+          </p>
         </div>
       </div>
     </div>

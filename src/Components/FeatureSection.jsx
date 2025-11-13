@@ -10,14 +10,13 @@ import {
 } from "lucide-react";
 
 const FeatureSection = () => (
-  <section className="py-14 mb-12 bg-gradient-to-b from-green-50 via-blue-50 to-yellow-50 dark:from-green-900 dark:via-blue-900 dark:to-yellow-900 transition-colors duration-500">
+  <section className="py-14 mb-12 bg-linear-to-b from-green-50 via-blue-50 to-yellow-50 dark:from-green-900 dark:via-blue-900 dark:to-yellow-900 transition-colors duration-500">
     <div className="container mx-auto px-4">
       <h2 className="text-4xl font-extrabold text-center my-12 text-secondary tracking-tight">
         Empowering Social & Environmental Action
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
-        {/* Host Impactful Events */}
         <div className="feature-card group rounded-2xl shadow-xl p-8 text-center bg-green-50 dark:bg-green-800 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 border-t-4 border-green-400">
           <div className="flex items-center justify-center mb-4">
             <Sparkles className="w-10 h-10 text-green-500 group-hover:text-green-700 dark:group-hover:text-green-300 transition" />
@@ -28,7 +27,6 @@ const FeatureSection = () => (
           </p>
         </div>
 
-        {/* Volunteer Management */}
         <div className="feature-card group rounded-2xl shadow-xl p-8 text-center bg-blue-50 dark:bg-blue-800 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 border-t-4 border-blue-400">
           <div className="flex items-center justify-center mb-4">
             <Users className="w-10 h-10 text-blue-500 group-hover:text-blue-700 dark:group-hover:text-blue-200 transition" />
@@ -39,7 +37,7 @@ const FeatureSection = () => (
           </p>
         </div>
 
-        {/* Sustainable Living Projects */}
+        
         <div className="feature-card group rounded-2xl shadow-xl p-8 text-center bg-yellow-50 dark:bg-yellow-800 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 border-t-4 border-yellow-400">
           <div className="flex items-center justify-center mb-4">
             <Leaf className="w-10 h-10 text-yellow-500 group-hover:text-yellow-700 dark:group-hover:text-yellow-200 transition" />
@@ -50,7 +48,7 @@ const FeatureSection = () => (
           </p>
         </div>
 
-        {/* Impact Highlights */}
+       
         <div className="feature-card group rounded-2xl shadow-xl p-8 text-center bg-pink-50 dark:bg-pink-800 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 border-t-4 border-pink-400">
           <div className="flex items-center justify-center mb-4">
             <HeartHandshake className="w-10 h-10 text-pink-500 group-hover:text-pink-700 dark:group-hover:text-pink-200 transition" />
@@ -61,7 +59,7 @@ const FeatureSection = () => (
           </p>
         </div>
 
-        {/* Inclusive & Adaptive Design */}
+     
         <div className="feature-card group rounded-2xl shadow-xl p-8 text-center bg-purple-50 dark:bg-purple-800 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 border-t-4 border-purple-400">
           <div className="flex items-center justify-center mb-4">
             <Accessibility className="w-10 h-10 text-purple-500 group-hover:text-purple-700 dark:group-hover:text-purple-200 transition" />
@@ -72,7 +70,7 @@ const FeatureSection = () => (
           </p>
         </div>
 
-        {/* Discover Local Movements */}
+       
         <div className="feature-card group rounded-2xl shadow-xl p-8 text-center bg-orange-50 dark:bg-orange-800 hover:-translate-y-1 hover:scale-105 transition-transform duration-300 border-t-4 border-orange-400">
           <div className="flex items-center justify-center mb-4">
             <Locate className="w-10 h-10 text-orange-500 group-hover:text-orange-700 dark:group-hover:text-orange-200 transition" />

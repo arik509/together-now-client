@@ -1,11 +1,9 @@
-import React, { useState, useContext, use } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
-
-import toast, { Toaster } from "react-hot-toast";
+import React, { useState, useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthContext";
-// import { AuthContext } from "../Context/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -22,31 +20,47 @@ const Login = () => {
 
     signInUser(email, password)
       .then((result) => {
-        toast.success(`Welcome back, ${result.user.displayName || "User"}!`);
-        setTimeout(() => navigate(location.state?.from || "/"), 1500);
+        Swal.fire({
+          icon: "success",
+          title: `Welcome back, ${result.user.displayName || "User"}!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setTimeout(() => navigate(location.state?.from || "/"), 1700);
       })
       .catch((error) => {
         setError(error.message);
-        toast.error(error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: "Invalid Credentials"
+        });
       });
   };
 
   const handleGoogleLogin = () => {
     signInWithGoogle()
-      .then((user) => {
-        toast.success(`Logged in as ${user.displayName || "User"} via Google!`);
-        setTimeout(() => navigate(location.state?.from || "/"), 1500);
+      .then((result) => {
+        Swal.fire({
+          icon: "success",
+          title: `Logged in as ${result.user.displayName || "User"} via Google!`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setTimeout(() => navigate(location.state?.from || "/"), 1700);
       })
       .catch((error) => {
         setError(error.message);
-        toast.error(error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Google Login Failed",
+          text: error.message
+        });
       });
   };
 
   return (
     <div>
-      <Toaster position="top-right" />
-
       <div className="flex justify-center min-h-screen items-center">
         <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
           <div className="card-body p-8">
@@ -83,7 +97,6 @@ const Login = () => {
                   </button>
                 </div>
 
-                {error && <p className="text-red-600 mt-2">{error}</p>}
 
                 <button type="submit" className="btn btn-primary text-secondary mt-4 w-full">
                   Login

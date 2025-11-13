@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router";
 import { Sun, Moon } from "lucide-react";
 import userIcon from "../assets/download.png";
 import { AuthContext } from "../Context/AuthContext";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -34,15 +35,37 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    signOutUser()
-      .then(() => {
-        console.log("User logged out");
-      })
-      .catch((error) => {
-        console.error("Logout error: ", error);
-      });
-    setDropdownOpen(false);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to log out?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, log out!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOutUser()
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Logged out successfully!",
+              showConfirmButton: false,
+              timer: 1400
+            });
+            setDropdownOpen(false);
+          })
+          .catch((error) => {
+            Swal.fire({
+              icon: "error",
+              title: "Logout Failed",
+              text: error.message
+            });
+          });
+      }
+    });
   };
+  
 
   return (
     <div className="bg-secondary">
