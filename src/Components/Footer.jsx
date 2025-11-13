@@ -54,7 +54,7 @@ const Footer = () => (
                   <MapPin size={16}></MapPin> Dhaka, Bangladesh
                 </li>
                 <li className="flex items-center gap-2">
-                   <Inbox size={16}></Inbox> togethernow@gmail.com
+                   <Inbox size={16}></Inbox> to.now@gmail.com
                 </li>
                 <li className="flex items-center gap-2">
                    <PhoneIcon size={16}></PhoneIcon> 5511515-5555
