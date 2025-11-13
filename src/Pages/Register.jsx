@@ -119,45 +119,45 @@ const Register = () => {
         <h1 className="text-3xl font-bold text-center my-4">Register Now</h1>
         <div className="card-body">
           <form onSubmit={handleRegister}>
-            <label className="label">Name</label>
+            <label className="label mb-2">Name</label>
             <input
               name="name"
               type="text"
-              className="input"
+              className="input mb-4"
               placeholder="Your Name"
               required
             />
 
-            <label className="label">Photo URL</label>
+            <label className="label mb-2">Photo URL</label>
             <input
               name="photo"
               type="text"
-              className="input"
+              className="input mb-4"
               placeholder="Your Photo URL"
               required
             />
 
-            <label className="label">Email</label>
+            <label className="label mb-2">Email</label>
             <input
               name="email"
               type="email"
-              className="input"
+              className="input mb-4"
               placeholder="Email"
               required
             />
 
-            <label className="label">Password</label>
+            <label className="label mb-2">Password</label>
             <input
               name="password"
               type="password"
-              className="input"
+              className="input mb-4"
               placeholder="Password"
               required
             />
 
             <button
               type="submit"
-              className="btn btn-primary mt-4"
+              className="btn btn-primary mt-4 w-full"
               disabled={loading}
             >
               {loading ? "Registering..." : "Register"}
