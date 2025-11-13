@@ -98,7 +98,7 @@ const UpcomingEvents = () => {
             type="text"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            placeholder="Search events by title, description, or location..."
+            placeholder="Search events by title.."
             className="input input-bordered w-full pr-20 pl-12"
           />
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -122,7 +122,7 @@ const UpcomingEvents = () => {
         </form>
 
         {searchQuery && (
-          <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <div className="mt-2 text-sm text-accent">
             Searching for:{" "}
             <span className="font-semibold">"{searchQuery}"</span>
             <button
@@ -153,20 +153,20 @@ const UpcomingEvents = () => {
 
       {(filter !== "All" || searchQuery) && (
         <div className="flex flex-wrap gap-2 justify-center mb-6">
-          <span className="text-sm text-gray-600 dark:text-gray-400">
+          <span className="text-sm text-accent">
             Active filters:
           </span>
           {filter !== "All" && (
             <span className="badge badge-primary gap-2">
-              Type: {filter}
+              <p className="text-accent">Type: {filter}</p>
               <button onClick={() => setFilter("All")}>
                 <X className="w-3 h-3" />
               </button>
             </span>
           )}
           {searchQuery && (
-            <span className="badge badge-secondary gap-2">
-              Search: {searchQuery}
+            <span className="badge badge-primary gap-2">
+              <p className="text-accent">Search: {searchQuery}</p>
               <button onClick={handleClearSearch}>
                 <X className="w-3 h-3" />
               </button>
@@ -200,7 +200,7 @@ const UpcomingEvents = () => {
         </div>
       ) : (
         <>
-          <div className="text-center my-4 text-2xl text-gray-600 dark:text-gray-400">
+          <div className="text-center my-4 text-2xl text-accent">
             Found {events.length} event{events.length !== 1 ? "s" : ""}
           </div>
 

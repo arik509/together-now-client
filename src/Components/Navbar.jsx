@@ -69,7 +69,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-secondary">
-      <div className="navbar w-11/12 mx-auto p-0 md:p-3 lg:p-6">
+      <div className="navbar w-full md:w-11/12 mx-auto p-1 md:p-3 lg:p-6">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -137,16 +137,16 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <div className="navbar-end flex items-center gap-4">
+        <div className="navbar-end flex items-center gap-2 md:gap-4">
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full border border-green-700 hover:bg-green-100 dark:hover:bg-green-500 cursor-pointer transition"
             title="Toggle theme"
           >
             {theme === "light" ? (
-              <Moon className="w-5 h-5 text-green-800" />
+              <Moon className="w-2 md:w-5 h-2 md:h-5 text-green-800" />
             ) : (
-              <Sun className="w-5 h-5 text-yellow-400" />
+              <Sun className="w-2 md:w-5 h-2 md:h-5 text-yellow-400" />
             )}
           </button>
 
@@ -161,7 +161,7 @@ const Navbar = () => {
                   <img
                     src={user.photoURL || userIcon}
                     alt={user.displayName || "User"}
-                    className="w-10 h-10 rounded-full border-2 border-green-700 dark:border-green-400"
+                    className="w-6 md:w-10 h-6 md:h-10 rounded-full border-2 border-green-700 dark:border-green-400"
                   />
                 </div>
 
@@ -198,13 +198,13 @@ const Navbar = () => {
                 )}
               </div>
 
-              <button onClick={handleLogout} className="button">
-                <span className="button-content cursor-pointer">Log Out</span>
+              <button onClick={handleLogout} className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl btn-primary">
+                <span className=" cursor-pointer ">Log Out</span>
               </button>
             </>
           ) : (
-            <button className="button">
-              <Link to="/auth/login" className="button-content">
+            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl btn-primary">
+              <Link to="/auth/login" className="">
                 Log In
               </Link>
             </button>

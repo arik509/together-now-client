@@ -25,7 +25,7 @@ const Footer = () => (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-20 w-full">
             <div className="text-primary">
               <h3 className="font-bold mb-2">About</h3>
-              <ul className="space-y-1 text-accent">
+              <ul className="space-y-1 text-[12px] md:text-[16px] text-accent">
                 <li>Who We Are</li>
                 <li>Our Story</li>
                 <li>Gallery</li>
@@ -33,7 +33,7 @@ const Footer = () => (
             </div>
             <div className="text-primary">
               <h3 className="font-bold mb-2">Service</h3>
-              <ul className="space-y-1 text-accent">
+              <ul className="space-y-1 text-[12px] md:text-[16px] text-accent">
                 <li>Nature</li>
                 <li>Donation</li>
                 <li>Action</li>
@@ -41,7 +41,7 @@ const Footer = () => (
             </div>
             <div className="text-primary">
               <h3 className="font-bold mb-2">Policies</h3>
-              <ul className="space-y-1 text-accent">
+              <ul className="space-y-1 text-[12px] md:text-[16px] text-accent">
                 <li>Terms & Conditions</li>
                 <li>Service</li>
                 <li>Destination</li>
@@ -49,7 +49,7 @@ const Footer = () => (
             </div>
             <div className="text-primary">
               <h3 className="font-bold mb-2">Contact Info</h3>
-              <ul className="space-y-1 text-[14px] md:text-[16px] text-accent">
+              <ul className="space-y-1 text-[12px] md:text-[16px] text-accent">
                 <li className="flex items-center gap-2">
                   <MapPin size={16}></MapPin> Dhaka, Bangladesh
                 </li>
