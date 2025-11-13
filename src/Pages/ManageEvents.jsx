@@ -23,7 +23,8 @@ const ManageEvents = () => {
   const fetchMyEvents = async () => {
     try {
       const resp = await fetch(
-        `http://localhost:3000/events?email=${user.email}`,{
+        `https://together-now-server.vercel.app/events?email=${user.email}`,
+        {
           headers: {
             authorization: `Bearer ${user.accessToken}`,
           },
@@ -59,11 +60,14 @@ const ManageEvents = () => {
   const handleUpdateEvent = async (eventId) => {
     setUpdating(true);
     try {
-      const resp = await fetch(`http://localhost:3000/events/${eventId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const resp = await fetch(
+        `https://together-now-server.vercel.app/events/${eventId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
       const result = await resp.json();
       if (resp.ok) {
         toast.success("Event updated successfully!");
@@ -92,9 +96,12 @@ const ManageEvents = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const resp = await fetch(`http://localhost:3000/events/${eventId}`, {
-            method: "DELETE",
-          });
+          const resp = await fetch(
+            `https://together-now-server.vercel.app/events/${eventId}`,
+            {
+              method: "DELETE",
+            }
+          );
           if (resp.ok) {
             Swal.fire({
               title: "Deleted!",

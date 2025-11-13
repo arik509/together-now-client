@@ -6,7 +6,13 @@ import { AuthContext } from "../Context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const EVENT_TYPES = ["Cleanup", "Plantation", "Donation", "Awareness", "Workshop"];
+const EVENT_TYPES = [
+  "Cleanup",
+  "Plantation",
+  "Donation",
+  "Awareness",
+  "Workshop",
+];
 
 const CreateEvent = () => {
   const { user } = useContext(AuthContext);
@@ -42,27 +48,29 @@ const CreateEvent = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(eventData),
-      });
+      const response = await fetch(
+        "https://together-now-server.vercel.app/events",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(eventData),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
         toast.success("Event created successfully!");
-        
+
         setTitle("");
         setDescription("");
         setEventType(EVENT_TYPES[0]);
         setThumbnail("");
         setLocation("");
         setEventDate(null);
-        
-        
+
         setTimeout(() => {
           navigate("/upcoming-events");
         }, 2000);
@@ -77,7 +85,6 @@ const CreateEvent = () => {
     }
   };
 
-  
   const today = new Date();
   const minDate = today;
 
@@ -92,9 +99,14 @@ const CreateEvent = () => {
   return (
     <div className="container mx-auto max-w-xl py-12 px-4">
       <h1 className="text-3xl font-bold mb-6 text-green-700">Create Event</h1>
-      <form onSubmit={handleSubmit} className="space-y-6 bg-base-200 p-6 rounded shadow-md">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 bg-base-200 p-6 rounded shadow-md"
+      >
         <div>
-          <label className="block mb-1 font-semibold" htmlFor="title">Event Title</label>
+          <label className="block mb-1 font-semibold" htmlFor="title">
+            Event Title
+          </label>
           <input
             id="title"
             type="text"
@@ -107,7 +119,9 @@ const CreateEvent = () => {
         </div>
 
         <div>
-          <label className="block mb-1 font-semibold" htmlFor="description">Description</label>
+          <label className="block mb-1 font-semibold" htmlFor="description">
+            Description
+          </label>
           <textarea
             id="description"
             required
@@ -120,7 +134,9 @@ const CreateEvent = () => {
         </div>
 
         <div>
-          <label className="block mb-1 font-semibold" htmlFor="eventType">Event Type</label>
+          <label className="block mb-1 font-semibold" htmlFor="eventType">
+            Event Type
+          </label>
           <select
             id="eventType"
             value={eventType}
@@ -128,13 +144,17 @@ const CreateEvent = () => {
             className="select select-bordered w-full"
           >
             {EVENT_TYPES.map((type) => (
-              <option key={type} value={type}>{type}</option>
+              <option key={type} value={type}>
+                {type}
+              </option>
             ))}
           </select>
         </div>
 
         <div>
-          <label className="block mb-1 font-semibold" htmlFor="thumbnail">Thumbnail Image URL</label>
+          <label className="block mb-1 font-semibold" htmlFor="thumbnail">
+            Thumbnail Image URL
+          </label>
           <input
             id="thumbnail"
             type="url"
@@ -146,7 +166,9 @@ const CreateEvent = () => {
         </div>
 
         <div>
-          <label className="block mb-1 font-semibold" htmlFor="location">Location</label>
+          <label className="block mb-1 font-semibold" htmlFor="location">
+            Location
+          </label>
           <input
             id="location"
             type="text"
@@ -159,7 +181,9 @@ const CreateEvent = () => {
         </div>
 
         <div>
-          <label className="block mb-1 font-semibold" htmlFor="eventDate">Event Date</label>
+          <label className="block mb-1 font-semibold" htmlFor="eventDate">
+            Event Date
+          </label>
           <DatePicker
             id="eventDate"
             selected={eventDate}
@@ -172,7 +196,11 @@ const CreateEvent = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary w-full" disabled={loading}>
+        <button
+          type="submit"
+          className="btn btn-primary w-full"
+          disabled={loading}
+        >
           {loading ? "Creating..." : "Create Event"}
         </button>
       </form>

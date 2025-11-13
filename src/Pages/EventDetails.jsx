@@ -27,12 +27,14 @@ const EventDetails = () => {
 
   const fetchEventDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/events/${id}`);
-      
+      const response = await fetch(
+        `https://together-now-server.vercel.app/events/${id}`
+      );
+
       if (!response.ok) {
         throw new Error("Event not found");
       }
-      
+
       const data = await response.json();
       setEvent(data);
     } catch (error) {
@@ -46,7 +48,7 @@ const EventDetails = () => {
   const checkIfJoined = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/participants/check?eventId=${id}&userEmail=${user.email}`
+        `https://together-now-server.vercel.app/participants/check?eventId=${id}&userEmail=${user.email}`
       );
       const data = await response.json();
       setHasJoined(data.hasJoined);
@@ -74,13 +76,16 @@ const EventDetails = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/participants", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(participantData),
-      });
+      const response = await fetch(
+        "https://together-now-server.vercel.app/participants",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(participantData),
+        }
+      );
 
       const data = await response.json();
 
@@ -99,13 +104,13 @@ const EventDetails = () => {
   };
 
   const formatDate = (dateString) => {
-    const options = { 
+    const options = {
       weekday: "long",
-      year: "numeric", 
-      month: "long", 
+      year: "numeric",
+      month: "long",
       day: "numeric",
       hour: "2-digit",
-      minute: "2-digit"
+      minute: "2-digit",
     };
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
@@ -126,11 +131,10 @@ const EventDetails = () => {
   if (!event) {
     return (
       <div className="container mx-auto py-12 px-4 text-center">
-        <h2 className="text-2xl font-bold text-red-600 mb-4">Event Not Found</h2>
-        <button
-          onClick={() => navigate("/upcoming-events")}
-          className="button"
-        >
+        <h2 className="text-2xl font-bold text-red-600 mb-4">
+          Event Not Found
+        </h2>
+        <button onClick={() => navigate("/upcoming-events")} className="button">
           <span className="button-content">Back to Events</span>
         </button>
       </div>
@@ -149,7 +153,9 @@ const EventDetails = () => {
 
       <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-8 shadow-2xl">
         <img
-          src={event.thumbnail || "https://via.placeholder.com/800x400?text=Event"}
+          src={
+            event.thumbnail || "https://via.placeholder.com/800x400?text=Event"
+          }
           alt={event.title}
           className="w-full h-full object-cover"
         />
@@ -164,9 +170,7 @@ const EventDetails = () => {
         </div>
       </div>
 
-      
       <div className="bg-base-100 shadow-xl rounded-xl p-6 md:p-8">
-        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 pb-6 border-b border-base-300">
           <div className="flex items-start gap-3">
             <Calendar className="w-5 h-5 text-green-700 mt-1" />
@@ -188,20 +192,18 @@ const EventDetails = () => {
             <User className="w-5 h-5 text-green-700 mt-1" />
             <div>
               <p className="text-xs text-accent">Organized By</p>
-              <p className="font-semibold">{event.creatorName || "Anonymous"}</p>
+              <p className="font-semibold">
+                {event.creatorName || "Anonymous"}
+              </p>
             </div>
           </div>
         </div>
 
-        
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4">About This Event</h2>
-          <p className="text-accent leading-relaxed">
-            {event.description}
-          </p>
+          <p className="text-accent leading-relaxed">{event.description}</p>
         </div>
 
-        
         <div className="flex justify-center">
           {hasJoined ? (
             <div className="alert alert-success w-full md:w-auto">
@@ -218,7 +220,9 @@ const EventDetails = () => {
                   d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              <span className="font-semibold">You have already joined this event!</span>
+              <span className="font-semibold">
+                You have already joined this event!
+              </span>
             </div>
           ) : (
             <button
@@ -226,9 +230,7 @@ const EventDetails = () => {
               disabled={joining}
               className="btn btn-outline btn-primary w-full md:w-auto md:px-12"
             >
-              <span className="">
-                {joining ? "Joining..." : "Join Event"}
-              </span>
+              <span className="">{joining ? "Joining..." : "Join Event"}</span>
             </button>
           )}
         </div>
