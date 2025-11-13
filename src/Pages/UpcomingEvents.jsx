@@ -52,7 +52,7 @@ const UpcomingEvents = () => {
       
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-green-700 mb-2">Upcoming Events</h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-accent">
           Join us in making a difference in our community
         </p>
       </div>
@@ -86,7 +86,7 @@ const UpcomingEvents = () => {
           {filteredEvents.map((event) => (
             <div
               key={event._id}
-              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
+              className="card bg-neutral shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
             >
               
               <figure className="h-48 overflow-hidden">
@@ -99,37 +99,37 @@ const UpcomingEvents = () => {
 
               <div className="card-body">
                 
-                <div className="badge badge-secondary mb-2">
-                  <Tag className="w-3 h-3 mr-1" />
-                  {event.eventType}
+                <div className="badge badge-dash mb-2">
+                  <Tag className="w-3 text-accent h-3 mr-1" />
+                  <p className="text-accent">{event.eventType}</p>
                 </div>
 
                 <h2 className="card-title text-xl font-bold mb-2">
                   {event.title}
                 </h2>
 
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
+                <div className="flex items-center gap-2  mb-2">
                   <MapPin className="w-4 h-4 text-green-700" />
                   <span className="text-sm">{event.location}</span>
                 </div>
 
                
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
+                <div className="flex items-center gap-2 mb-4">
                   <Calendar className="w-4 h-4 text-green-700" />
                   <span className="text-sm">{formatDate(event.eventDate)}</span>
                 </div>
 
                 
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+                <p className="text-sm  mb-4 line-clamp-2">
                   {event.description}
                 </p>
 
                 <div className="card-actions justify-end">
                   <Link
                     to={`/event/${event._id}`}
-                    className="button w-full text-center"
+                    className="btn btn-outline btn-primary w-full text-center"
                   >
-                    <span className="button-content">View Event</span>
+                    <span className="">View Event</span>
                   </Link>
                 </div>
               </div>

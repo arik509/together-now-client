@@ -155,7 +155,7 @@ const EventDetails = () => {
         />
         <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex items-end">
           <div className="p-6 text-white w-full">
-            <div className="badge badge-secondary mb-2">
+            <div className="badge badge-primary mb-2">
               <Tag className="w-3 h-3 mr-1" />
               {event.eventType}
             </div>
@@ -171,7 +171,7 @@ const EventDetails = () => {
           <div className="flex items-start gap-3">
             <Calendar className="w-5 h-5 text-green-700 mt-1" />
             <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Date & Time</p>
+              <p className="text-xs text-accent">Date & Time</p>
               <p className="font-semibold">{formatDate(event.eventDate)}</p>
             </div>
           </div>
@@ -179,7 +179,7 @@ const EventDetails = () => {
           <div className="flex items-start gap-3">
             <MapPin className="w-5 h-5 text-green-700 mt-1" />
             <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Location</p>
+              <p className="text-xs text-accent">Location</p>
               <p className="font-semibold">{event.location}</p>
             </div>
           </div>
@@ -187,7 +187,7 @@ const EventDetails = () => {
           <div className="flex items-start gap-3">
             <User className="w-5 h-5 text-green-700 mt-1" />
             <div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Organized By</p>
+              <p className="text-xs text-accent">Organized By</p>
               <p className="font-semibold">{event.creatorName || "Anonymous"}</p>
             </div>
           </div>
@@ -196,7 +196,7 @@ const EventDetails = () => {
         
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4">About This Event</h2>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p className="text-accent leading-relaxed">
             {event.description}
           </p>
         </div>
@@ -224,9 +224,9 @@ const EventDetails = () => {
             <button
               onClick={handleJoinEvent}
               disabled={joining}
-              className="button w-full md:w-auto md:px-12"
+              className="btn btn-outline btn-primary w-full md:w-auto md:px-12"
             >
-              <span className="button-content">
+              <span className="">
                 {joining ? "Joining..." : "Join Event"}
               </span>
             </button>

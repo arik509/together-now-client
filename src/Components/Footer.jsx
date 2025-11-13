@@ -14,7 +14,7 @@ const Footer = () => (
       <div className="mb-8 md:mb-6 shrink-0 flex flex-col items-start gap-3">
             <div className="flex items-center gap-2">
               <img className="w-[50px]" src={logo} alt="" />
-              <span className="text-2xl font-bold text-green-700 dark:text-green-300">
+              <span className="text-2xl font-bold text-primary">
                 Together Now
               </span>
             </div>
@@ -23,33 +23,33 @@ const Footer = () => (
           
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-20 w-full">
-            <div className="text-green-700 dark:text-green-300">
+            <div className="text-primary">
               <h3 className="font-bold mb-2">About</h3>
-              <ul className="space-y-1 text-green-900 dark:text-green-200">
+              <ul className="space-y-1 text-accent">
                 <li>Who We Are</li>
                 <li>Our Story</li>
                 <li>Gallery</li>
               </ul>
             </div>
-            <div className="text-green-700 dark:text-green-300">
+            <div className="text-primary">
               <h3 className="font-bold mb-2">Service</h3>
-              <ul className="space-y-1 text-green-900 dark:text-green-200">
+              <ul className="space-y-1 text-accent">
                 <li>Nature</li>
                 <li>Donation</li>
                 <li>Action</li>
               </ul>
             </div>
-            <div className="text-green-700 dark:text-green-300">
+            <div className="text-primary">
               <h3 className="font-bold mb-2">Policies</h3>
-              <ul className="space-y-1 text-green-900 dark:text-green-200">
+              <ul className="space-y-1 text-accent">
                 <li>Terms & Conditions</li>
                 <li>Service</li>
                 <li>Destination</li>
               </ul>
             </div>
-            <div className="text-green-700 dark:text-green-300">
+            <div className="text-primary">
               <h3 className="font-bold mb-2">Contact Info</h3>
-              <ul className="space-y-1 text-[14px] md:text-[16px] text-green-900 dark:text-green-200">
+              <ul className="space-y-1 text-[14px] md:text-[16px] text-accent">
                 <li className="flex items-center gap-2">
                   <MapPin size={16}></MapPin> Dhaka, Bangladesh
                 </li>
@@ -63,8 +63,8 @@ const Footer = () => (
             </div>
           </div>
         </div>
-        <div className="mt-10 flex flex-col md:flex-row md:justify-between items-center border-t border-green-700 dark:border-green-400 pt-4">
-          <span className="text-green-700 dark:text-green-300 text-sm">
+        <div className="mt-10 flex flex-col md:flex-row md:justify-between items-center border-t border-accent pt-4">
+          <span className="text-accent text-sm">
             ©2025 Together Now. All rights reserved.
           </span>
           <div className="flex gap-4 mt-4 md:mt-0">

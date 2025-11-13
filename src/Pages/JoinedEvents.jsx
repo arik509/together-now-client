@@ -65,9 +65,9 @@ const JoinedEvents = () => {
 
   return (
     <div className="container mx-auto py-12 px-4">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-green-700 mb-2">My Joined Events</h1>
-        <p className="text-gray-600 dark:text-gray-300">
+      <div className="text-center space-y-4 mb-8">
+        <h1 className="text-4xl font-bold text-green-700 mb-4">My Joined Events</h1>
+        <p className="text-accent">
           This page shows all events you have joined, sorted by event date.
         </p>
       </div>
@@ -83,7 +83,7 @@ const JoinedEvents = () => {
           {joinedEvents.map(event => (
             <div
               key={event._id}
-              className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
+              className="card bg-neutral shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
             >
               <figure className="h-48 overflow-hidden">
                 <img
@@ -93,23 +93,23 @@ const JoinedEvents = () => {
                 />
               </figure>
               <div className="card-body">
-                <div className="badge badge-secondary mb-2">
+                <div className="badge badge-primary mb-2">
                   <Tag className="w-3 h-3 mr-1" />
                   {event.eventType}
                 </div>
                 <h2 className="card-title text-xl font-bold mb-2">{event.title}</h2>
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
+                <div className="flex items-center gap-2 text-accent">
                   <MapPin className="w-4 h-4 text-green-700" />
                   <span className="text-sm">{event.location}</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
+                <div className="flex items-center gap-2 text-accent mb-4">
                   <Calendar className="w-4 h-4 text-green-700" />
                   <span className="text-sm">{formatDate(event.eventDate)}</span>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">{event.description}</p>
+                <p className="text-sm text-accent mb-4 line-clamp-2">{event.description}</p>
                 <div className="card-actions justify-end">
-                  <Link to={`/event/${event._id}`} className="button w-full text-center">
-                    <span className="button-content">View Event</span>
+                  <Link to={`/event/${event._id}`} className="btn btn-outline btn-primary w-full text-center">
+                    <span>View Event</span>
                   </Link>
                 </div>
               </div>
