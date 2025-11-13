@@ -14,6 +14,7 @@ import AuthProvider from "./Context/AuthProvider.jsx";
 import CreateEvent from "./Pages/CreateEvent.jsx";
 import JoinedEvents from "./Pages/JoinedEvents.jsx";
 import ManageEvents from "./Pages/ManageEvents.jsx";
+import PrivateRoute from "./Context/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,15 +35,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/create-event",
-        element: <CreateEvent></CreateEvent>,
+        element: <PrivateRoute><CreateEvent></CreateEvent></PrivateRoute> ,
       },
       {
         path: "/joined-events",
-        element: <JoinedEvents></JoinedEvents>
+        element: <PrivateRoute><JoinedEvents></JoinedEvents></PrivateRoute> ,
       },
       {
         path: "/manage-events",
-        element: <ManageEvents></ManageEvents>
+        element: <PrivateRoute><ManageEvents></ManageEvents></PrivateRoute>,
       }
     ],
   },
