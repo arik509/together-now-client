@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
+import { FaGoogle } from "react-icons/fa";
 
 const Register = () => {
   const { signInWithGoogle, createUser, setUser, updateUser } = useContext(AuthContext);
@@ -63,7 +64,7 @@ const Register = () => {
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="card bg-base-100 w-full max-w-sm shadow-2xl mx-auto">
-        <h1 className="text-5xl font-bold text-center my-4">Register Now</h1>
+        <h1 className="text-3xl font-bold text-center my-4">Register Now</h1>
         <div className="card-body">
           <form onSubmit={handleRegister}>
             <fieldset className="fieldset">
@@ -88,7 +89,7 @@ const Register = () => {
                 onClick={handleGoogleSignIn}
                 className="btn bg-white text-black border-[#e5e5e5]"
               >
-                Sign up with Google
+               <FaGoogle className="mr-2"></FaGoogle> Sign up with Google
               </button>
 
               <p className="mt-2 text-sm text-center">

@@ -11,24 +11,28 @@
   --color-primary: green;
   --color-secondary: #d9f7be;
   --color-base-100: #d9f7be; 
+  --color-base-200: #a8cc7a; 
+  --color-base-300: #8ab353; 
 }
+
+
 
 
 @plugin "daisyui/theme" {
   name: "dark";
-  --color-primary: #22c55e; /* green-500 */
+  --color-primary: #22c55e; 
   --color-secondary: #1a1a1a;
-  --color-base-100: #0f172a; /* dark navy background */
-  --color-base-200: #1e293b; /* slightly lighter for cards */
+  --color-base-100: #0f172a; 
+  --color-base-200: #1e293b; 
   --color-base-300: #334155;
-  --color-neutral: #f8fafc; /* text color */
+  --color-neutral: #f8fafc; 
 }
 
 * {
   font-family: "Roboto Mono";
 }
 
-/* From Uiverse.io by Madflows */
+
 .button {
   position: relative;
   overflow: hidden;
