@@ -10,59 +10,20 @@ const UpcomingEvents = () => {
   const EVENT_TYPES = ["All", "Cleanup", "Plantation", "Donation", "Awareness", "Workshop"];
 
   useEffect(() => {
-    setTimeout(() => {
-      const mockEvents = [
-        {
-          id: 1,
-          title: "Beach Cleanup Drive",
-          description: "Join us for a community beach cleanup event",
-          eventType: "Cleanup",
-          thumbnail: "https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?w=500",
-          location: "Cox's Bazar Beach",
-          eventDate: "2025-11-20T10:00:00",
-          creatorEmail: "user@example.com",
-        },
-        {
-          id: 2,
-          title: "Tree Plantation Campaign",
-          description: "Plant trees and make our city greener",
-          eventType: "Plantation",
-          thumbnail: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500",
-          location: "Ramna Park, Dhaka",
-          eventDate: "2025-11-25T08:00:00",
-          creatorEmail: "admin@example.com",
-        },
-        {
-          id: 3,
-          title: "Winter Clothes Donation",
-          description: "Donate warm clothes for the underprivileged",
-          eventType: "Donation",
-          thumbnail: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=500",
-          location: "Community Center, Mirpur",
-          eventDate: "2025-12-01T09:00:00",
-          creatorEmail: "donor@example.com",
-        },
-        {
-          id: 4,
-          title: "Environmental Awareness Workshop",
-          description: "Learn about climate change and sustainability",
-          eventType: "Workshop",
-          thumbnail: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500",
-          location: "BUET Auditorium",
-          eventDate: "2025-12-05T14:00:00",
-          creatorEmail: "workshop@example.com",
-        },
-      ];
-
-      const today = new Date();
-      const upcomingEvents = mockEvents.filter(
-        (event) => new Date(event.eventDate) >= today
-      );
-
-      setEvents(upcomingEvents);
-      setLoading(false);
-    }, 1000);
+    fetchUpcomingEvents();
   }, []);
+
+  const fetchUpcomingEvents = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/upcoming-events");
+      const data = await response.json();
+      setEvents(data);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredEvents = filter === "All" 
     ? events 
@@ -88,13 +49,15 @@ const UpcomingEvents = () => {
 
   return (
     <div className="container mx-auto py-12 px-4">
+      
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-green-700 mb-2">Upcoming Events</h1>
-        <p className="text-accent">
+        <p className="text-gray-600 dark:text-gray-300">
           Join us in making a difference in our community
         </p>
       </div>
 
+      
       <div className="flex flex-wrap justify-center gap-3 mb-8">
         {EVENT_TYPES.map((type) => (
           <button
@@ -111,6 +74,7 @@ const UpcomingEvents = () => {
         ))}
       </div>
 
+      
       {filteredEvents.length === 0 ? (
         <div className="text-center py-12">
           <p className="text-xl text-gray-600 dark:text-gray-400">
@@ -121,13 +85,13 @@ const UpcomingEvents = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredEvents.map((event) => (
             <div
-              key={event.id}
+              key={event._id}
               className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
             >
               
               <figure className="h-48 overflow-hidden">
                 <img
-                  src={event.thumbnail}
+                  src={event.thumbnail || "https://via.placeholder.com/400x300?text=Event"}
                   alt={event.title}
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                 />
@@ -140,18 +104,16 @@ const UpcomingEvents = () => {
                   {event.eventType}
                 </div>
 
-                
                 <h2 className="card-title text-xl font-bold mb-2">
                   {event.title}
                 </h2>
 
-                
                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
                   <MapPin className="w-4 h-4 text-green-700" />
                   <span className="text-sm">{event.location}</span>
                 </div>
 
-                
+               
                 <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
                   <Calendar className="w-4 h-4 text-green-700" />
                   <span className="text-sm">{formatDate(event.eventDate)}</span>
@@ -162,10 +124,9 @@ const UpcomingEvents = () => {
                   {event.description}
                 </p>
 
-                
                 <div className="card-actions justify-end">
                   <Link
-                    to={`/event/${event.id}`}
+                    to={`/event/${event._id}`}
                     className="button w-full text-center"
                   >
                     <span className="button-content">View Event</span>

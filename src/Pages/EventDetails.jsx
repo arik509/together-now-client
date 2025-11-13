@@ -16,72 +16,46 @@ const EventDetails = () => {
   const [hasJoined, setHasJoined] = useState(false);
 
   useEffect(() => {
-    // Simulate fetching event details from API
-    setTimeout(() => {
-      const mockEvents = [
-        {
-          id: 1,
-          title: "Beach Cleanup Drive",
-          description: "Join us for a community beach cleanup event. We will be cleaning the beautiful Cox's Bazar beach and making it cleaner for everyone. Bring your friends and family to make this event a success. All necessary equipment will be provided. Let's work together to keep our beaches clean and beautiful.",
-          eventType: "Cleanup",
-          thumbnail: "https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?w=800",
-          location: "Cox's Bazar Beach",
-          eventDate: "2025-11-20T10:00:00",
-          creatorEmail: "user@example.com",
-          creatorName: "John Doe",
-        },
-        {
-          id: 2,
-          title: "Tree Plantation Campaign",
-          description: "Plant trees and make our city greener. This is a great opportunity to contribute to our environment. We aim to plant 1000+ trees in various locations across Ramna Park. Join us in this noble cause and help make Dhaka a greener city.",
-          eventType: "Plantation",
-          thumbnail: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800",
-          location: "Ramna Park, Dhaka",
-          eventDate: "2025-11-25T08:00:00",
-          creatorEmail: "admin@example.com",
-          creatorName: "Admin Team",
-        },
-        {
-          id: 3,
-          title: "Winter Clothes Donation",
-          description: "Donate warm clothes for the underprivileged. Winter is coming and many people don't have warm clothes. Your contribution can make someone's winter warm and comfortable. All types of winter clothing are welcome.",
-          eventType: "Donation",
-          thumbnail: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=800",
-          location: "Community Center, Mirpur",
-          eventDate: "2025-12-01T09:00:00",
-          creatorEmail: "donor@example.com",
-          creatorName: "Sarah Ahmed",
-        },
-        {
-          id: 4,
-          title: "Environmental Awareness Workshop",
-          description: "Learn about climate change and sustainability. This workshop will cover important topics related to environmental conservation, climate change impacts, and what we can do as individuals to make a difference. Expert speakers will share their knowledge and experience.",
-          eventType: "Workshop",
-          thumbnail: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800",
-          location: "BUET Auditorium",
-          eventDate: "2025-12-05T14:00:00",
-          creatorEmail: "workshop@example.com",
-          creatorName: "Environmental Club",
-        },
-      ];
+    fetchEventDetails();
+  }, [id]);
 
-      const foundEvent = mockEvents.find((e) => e.id === parseInt(id));
-      setEvent(foundEvent);
-      setLoading(false);
+  useEffect(() => {
+    if (user && event) {
+      checkIfJoined();
+    }
+  }, [user, event]);
 
-      // Check if user has already joined (simulate API call)
-      if (user && foundEvent) {
-        // In real app, check from database
-        const joinedEvents = JSON.parse(localStorage.getItem("joinedEvents") || "[]");
-        const alreadyJoined = joinedEvents.some(
-          (je) => je.eventId === foundEvent.id && je.userEmail === user.email
-        );
-        setHasJoined(alreadyJoined);
+  const fetchEventDetails = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/events/${id}`);
+      
+      if (!response.ok) {
+        throw new Error("Event not found");
       }
-    }, 800);
-  }, [id, user]);
+      
+      const data = await response.json();
+      setEvent(data);
+    } catch (error) {
+      console.error("Error fetching event:", error);
+      toast.error("Failed to load event details");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-  const handleJoinEvent = () => {
+  const checkIfJoined = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/participants/check?eventId=${id}&userEmail=${user.email}`
+      );
+      const data = await response.json();
+      setHasJoined(data.hasJoined);
+    } catch (error) {
+      console.error("Error checking participation:", error);
+    }
+  };
+
+  const handleJoinEvent = async () => {
     if (!user) {
       toast.error("Please login to join this event");
       setTimeout(() => {
@@ -92,25 +66,36 @@ const EventDetails = () => {
 
     setJoining(true);
 
-    // Simulate API call to join event
-    setTimeout(() => {
-      const joinData = {
-        eventId: event.id,
-        eventTitle: event.title,
-        userEmail: user.email,
-        userName: user.displayName || "Anonymous",
-        joinedAt: new Date().toISOString(),
-      };
+    const participantData = {
+      eventId: id,
+      eventTitle: event.title,
+      userEmail: user.email,
+      userName: user.displayName || "Anonymous",
+    };
 
-      // Store in localStorage (in real app, send to backend)
-      const joinedEvents = JSON.parse(localStorage.getItem("joinedEvents") || "[]");
-      joinedEvents.push(joinData);
-      localStorage.setItem("joinedEvents", JSON.stringify(joinedEvents));
+    try {
+      const response = await fetch("http://localhost:3000/participants", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(participantData),
+      });
 
-      setHasJoined(true);
+      const data = await response.json();
+
+      if (response.ok) {
+        setHasJoined(true);
+        toast.success("Successfully joined the event!");
+      } else {
+        toast.error(data.message || "Failed to join event");
+      }
+    } catch (error) {
+      console.error("Error joining event:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
       setJoining(false);
-      toast.success("Successfully joined the event!");
-    }, 1000);
+    }
   };
 
   const formatDate = (dateString) => {
@@ -154,23 +139,21 @@ const EventDetails = () => {
 
   return (
     <div className="container mx-auto py-8 px-4 max-w-5xl">
-      {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
-        className="flex items-center gap-2 mb-6 text-green-700 hover:text-green-900 font-semibold"
+        className="flex items-center cursor-pointer gap-2 mb-6 text-green-700 hover:text-green-900 font-semibold"
       >
         <ArrowLeft className="w-5 h-5" />
         Back
       </button>
 
-      {/* Event Banner */}
       <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-8 shadow-2xl">
         <img
-          src={event.thumbnail}
+          src={event.thumbnail || "https://via.placeholder.com/800x400?text=Event"}
           alt={event.title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent flex items-end">
           <div className="p-6 text-white w-full">
             <div className="badge badge-secondary mb-2">
               <Tag className="w-3 h-3 mr-1" />
@@ -181,9 +164,9 @@ const EventDetails = () => {
         </div>
       </div>
 
-      {/* Event Details Card */}
+      
       <div className="bg-base-100 shadow-xl rounded-xl p-6 md:p-8">
-        {/* Quick Info */}
+        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 pb-6 border-b border-base-300">
           <div className="flex items-start gap-3">
             <Calendar className="w-5 h-5 text-green-700 mt-1" />
@@ -205,20 +188,20 @@ const EventDetails = () => {
             <User className="w-5 h-5 text-green-700 mt-1" />
             <div>
               <p className="text-xs text-gray-500 dark:text-gray-400">Organized By</p>
-              <p className="font-semibold">{event.creatorName}</p>
+              <p className="font-semibold">{event.creatorName || "Anonymous"}</p>
             </div>
           </div>
         </div>
 
-        {/* Description */}
+        
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-4">About This Event</h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            {event.description}
+            
           </p>
         </div>
 
-        {/* Join Button */}
+        
         <div className="flex justify-center">
           {hasJoined ? (
             <div className="alert alert-success w-full md:w-auto">
