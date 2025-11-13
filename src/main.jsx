@@ -7,6 +7,7 @@ import { RouterProvider } from "react-router/dom";
 import RootLayout from "./Layouts/RootLayout.jsx";
 import Home from "./Pages/Home.jsx";
 import UpcomingEvents from "./Pages/UpcomingEvents.jsx";
+import EventDetails from "./Pages/EventDetails.jsx";
 import AuthLayout from "./Layouts/AuthLayout.jsx";
 import Login from "./Pages/Login.jsx";
 import Registration from "./Pages/Register.jsx";
@@ -20,16 +21,20 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home></Home>
+        Component: Home,
       },
       {
         path: "/upcoming-events",
-        element: <UpcomingEvents></UpcomingEvents>
+        element: <UpcomingEvents></UpcomingEvents>,
+      },
+      {
+        path: "/event/:id",
+        element: <EventDetails></EventDetails>,
       },
       {
         path: "/create-event",
-        element: <CreateEvent></CreateEvent>
-      }
+        element: <CreateEvent></CreateEvent>,
+      },
     ],
   },
   {

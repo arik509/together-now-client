@@ -90,7 +90,7 @@ const UpcomingEvents = () => {
     <div className="container mx-auto py-12 px-4">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-green-700 mb-2">Upcoming Events</h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-accent">
           Join us in making a difference in our community
         </p>
       </div>

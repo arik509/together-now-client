@@ -13,6 +13,7 @@
   --color-base-100: #d9f7be; 
   --color-base-200: #a8cc7a; 
   --color-base-300: #8ab353; 
+  --color-accent: black;
 }
 
 
@@ -26,6 +27,7 @@
   --color-base-200: #1e293b; 
   --color-base-300: #334155;
   --color-neutral: #f8fafc; 
+  --color-accent: white;
 }
 
 * {

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../Context/AuthContext";
@@ -18,14 +18,17 @@ const CreateEvent = () => {
   const [thumbnail, setThumbnail] = useState("");
   const [location, setLocation] = useState("");
   const [eventDate, setEventDate] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!eventDate) {
       toast.error("Please select a valid event date.");
       return;
     }
+
+    setLoading(true);
 
     const eventData = {
       title,
@@ -35,27 +38,46 @@ const CreateEvent = () => {
       location,
       eventDate: eventDate.toISOString(),
       creatorEmail: user?.email || "unknown",
+      creatorName: user?.displayName || "Anonymous",
     };
 
-    // Simulate API call (replace with real API call)
-    setTimeout(() => {
-      toast.success("Event created successfully!");
-      // Redirect after 2 seconds
-      setTimeout(() => {
-        navigate("/upcoming-events");
-      }, 2000);
-    }, 1000);
+    try {
+      const response = await fetch("http://localhost:3000/events", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(eventData),
+      });
 
-    // Reset form (optional)
-    setTitle("");
-    setDescription("");
-    setEventType(EVENT_TYPES[0]);
-    setThumbnail("");
-    setLocation("");
-    setEventDate(null);
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Event created successfully!");
+        
+        setTitle("");
+        setDescription("");
+        setEventType(EVENT_TYPES[0]);
+        setThumbnail("");
+        setLocation("");
+        setEventDate(null);
+        
+        
+        setTimeout(() => {
+          navigate("/upcoming-events");
+        }, 2000);
+      } else {
+        toast.error("Failed to create event. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error creating event:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Disable past dates
+  
   const today = new Date();
   const minDate = today;
 
@@ -150,8 +172,8 @@ const CreateEvent = () => {
           />
         </div>
 
-        <button type="submit" className="button w-full">
-          Create Event
+        <button type="submit" className="btn btn-primary w-full" disabled={loading}>
+          {loading ? "Creating..." : "Create Event"}
         </button>
       </form>
 
