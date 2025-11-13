@@ -80,14 +80,14 @@ const Register = () => {
               <label className="label">Password</label>
               <input name="password" type="password" className="input" placeholder="Password" required />
 
-              <button type="submit" className="btn btn-neutral mt-4">Register</button>
+              <button type="submit" className="btn btn-primary mt-4">Register</button>
 
-              <div className="text-blue-600 my-2 font-bold text-center text-[20px]">Or,</div>
+              <div className="text-accent my-2 font-bold text-center text-[20px]">Or,</div>
 
               <button
                 type="button"
                 onClick={handleGoogleSignIn}
-                className="btn bg-white text-black border-[#e5e5e5]"
+                className="btn btn-outline btn-primary"
               >
                <FaGoogle className="mr-2"></FaGoogle> Sign up with Google
               </button>

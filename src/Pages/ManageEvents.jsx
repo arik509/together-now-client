@@ -4,6 +4,7 @@ import { Calendar, MapPin, Tag, Pencil, Trash2 } from "lucide-react";
 import { AuthContext } from "../Context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 const ManageEvents = () => {
   const { user } = useContext(AuthContext);
@@ -76,22 +77,46 @@ const ManageEvents = () => {
   };
 
   const handleDeleteEvent = async (eventId) => {
-    if (!window.confirm("Are you sure you want to delete this event?")) return;
-    try {
-      const resp = await fetch(`http://localhost:3000/events/${eventId}`, {
-        method: "DELETE",
-      });
-      if (resp.ok) {
-        toast.success("Event deleted!");
-        fetchMyEvents();
-      } else {
-        toast.error("Failed to delete event.");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const resp = await fetch(`http://localhost:3000/events/${eventId}`, {
+            method: "DELETE",
+          });
+          if (resp.ok) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your event has been deleted.",
+              icon: "success"
+            });
+            fetchMyEvents();
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: "Failed to delete event.",
+              icon: "error"
+            });
+          }
+        } catch (error) {
+          console.error("Error deleting event:", error);
+          Swal.fire({
+            title: "Error!",
+            text: "Deletion failed.",
+            icon: "error"
+          });
+        }
       }
-    } catch (error) {
-      console.error("Error deleting event:", error);
-      toast.error("Deletion failed.");
-    }
+    });
   };
+  
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };

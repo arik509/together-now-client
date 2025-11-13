@@ -85,7 +85,7 @@ const Login = () => {
 
                 {error && <p className="text-red-600 mt-2">{error}</p>}
 
-                <button type="submit" className="btn text-secondary btn-neutral mt-4 w-full">
+                <button type="submit" className="btn btn-primary text-secondary mt-4 w-full">
                   Login
                 </button>
               </fieldset>
@@ -95,7 +95,7 @@ const Login = () => {
 
             <button
               onClick={handleGoogleLogin}
-              className="btn btn-outline btn-neutral w-full mt-2 flex justify-center items-center"
+              className="btn btn-outline btn-primary w-full mt-2 flex justify-center items-center"
             >
               <FcGoogle size={20} /> Continue with Google
             </button>
