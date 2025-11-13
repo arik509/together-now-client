@@ -20,7 +20,7 @@ const Register = () => {
     const email = form.email.value.trim();
     const password = form.password.value;
 
-    // Password validation with SweetAlert2
+    
     if (!password || password.trim().length < 6) {
       Swal.fire({
         icon: "error",

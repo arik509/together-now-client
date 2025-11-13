@@ -8,7 +8,7 @@ const JoinedEvents = () => {
   const [joinedEvents, setJoinedEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch joined participant records for the user
+  
   useEffect(() => {
     if (user && user.email) {
       fetchJoinedEvents();
@@ -20,11 +20,9 @@ const JoinedEvents = () => {
       const resp = await fetch(`http://localhost:3000/participants/user/${user.email}`);
       const participantData = await resp.json();
 
-      // Get List of Unique Event IDs
       const eventIds = participantData.map(x => x.eventId);
 
-      // Batch Fetch Event Details (or in parallel)
-      // Option 1: Sequentially, Option 2: Promise.all
+      
       const eventDetails = await Promise.all(eventIds.map(async id => {
         const resp2 = await fetch(`http://localhost:3000/events/${id}`);
         if (resp2.ok) {
@@ -33,7 +31,7 @@ const JoinedEvents = () => {
         return null;
       }));
 
-      // Filter out missing events, then sort by eventDate ascending
+      
       const filtered = eventDetails.filter(ev => ev);
       filtered.sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
 

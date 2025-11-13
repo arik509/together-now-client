@@ -15,6 +15,7 @@ import CreateEvent from "./Pages/CreateEvent.jsx";
 import JoinedEvents from "./Pages/JoinedEvents.jsx";
 import ManageEvents from "./Pages/ManageEvents.jsx";
 import PrivateRoute from "./Context/PrivateRoute.jsx";
+import Error from "./Pages/Error.jsx";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
         element: <Registration></Registration>,
       },
     ],
+  },
+  {
+    path: "/*",
+    element: <Error></Error>,
   },
 ]);
 
