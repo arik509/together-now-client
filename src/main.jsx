@@ -15,6 +15,7 @@ import Dashboard from "./Pages/Dashboard.jsx";
 import PrivateRoute from "./Context/PrivateRoute.jsx";
 import Error from "./Pages/Error.jsx";
 import About from "./Components/About.jsx";
+import Profile from "./Pages/Profile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Dashboard></Dashboard>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
           </PrivateRoute>
         ),
       },

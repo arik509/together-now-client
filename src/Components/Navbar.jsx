@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import logo from "../assets/Together Now.png";
 import { Link, NavLink } from "react-router";
-import { Sun, Moon, LayoutDashboard } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import userIcon from "../assets/download.png";
 import { AuthContext } from "../Context/AuthContext";
 import Swal from "sweetalert2";
@@ -67,7 +67,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-secondary">
+    <div className="bg-secondary sticky top-0 z-50 shadow-md">
       <div className="navbar w-full md:w-11/12 mx-auto p-1 md:p-3 lg:p-6">
         <div className="navbar-start">
           <div className="dropdown">
