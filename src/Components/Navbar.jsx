@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import logo from "../assets/Together Now.png";
 import { Link, NavLink } from "react-router";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, LayoutDashboard } from "lucide-react";
 import userIcon from "../assets/download.png";
 import { AuthContext } from "../Context/AuthContext";
 import Swal from "sweetalert2";
@@ -42,7 +42,7 @@ const Navbar = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, log out!"
+      confirmButtonText: "Yes, log out!",
     }).then((result) => {
       if (result.isConfirmed) {
         signOutUser()
@@ -51,7 +51,7 @@ const Navbar = () => {
               icon: "success",
               title: "Logged out successfully!",
               showConfirmButton: false,
-              timer: 1400
+              timer: 1400,
             });
             setDropdownOpen(false);
           })
@@ -59,7 +59,7 @@ const Navbar = () => {
             Swal.fire({
               icon: "error",
               title: "Logout Failed",
-              text: error.message
+              text: error.message,
             });
           });
       }
@@ -100,6 +100,11 @@ const Navbar = () => {
               <li>
                 <NavLink to="/about">About Us</NavLink>
               </li>
+              {user && (
+                <li>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
+                </li>
+              )}
             </ul>
           </div>
           <div className="flex gap-2 items-center">
@@ -148,6 +153,20 @@ const Navbar = () => {
                 About Us
               </NavLink>
             </li>
+            {user && (
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    `lg:text-[20px] relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-green-800 after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                      isActive ? "font-bold text-green-800 after:w-full" : ""
+                    }`
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -183,36 +202,21 @@ const Navbar = () => {
                   <ul className="absolute right-0 mt-2 w-48 bg-base-100 border border-green-700 dark:border-green-400 rounded shadow-lg z-50">
                     <li>
                       <Link
-                        to="/create-event"
+                        to="/profile"
                         className="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-700"
                         onClick={() => setDropdownOpen(false)}
                       >
-                        Create Event
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/manage-events"
-                        className="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-700"
-                        onClick={() => setDropdownOpen(false)}
-                      >
-                        Manage Events
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/joined-events"
-                        className="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-700"
-                        onClick={() => setDropdownOpen(false)}
-                      >
-                        Joined Events
+                        My Profile
                       </Link>
                     </li>
                   </ul>
                 )}
               </div>
 
-              <button onClick={handleLogout} className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl btn-primary">
+              <button
+                onClick={handleLogout}
+                className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl btn-primary"
+              >
                 <span className=" cursor-pointer ">Log Out</span>
               </button>
             </>
