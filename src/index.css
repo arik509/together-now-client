@@ -18,8 +18,6 @@
 }
 
 
-
-
 @plugin "daisyui/theme" {
   name: "dark";
   --color-primary: #22c55e; 

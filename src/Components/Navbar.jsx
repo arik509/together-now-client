@@ -65,7 +65,6 @@ const Navbar = () => {
       }
     });
   };
-  
 
   return (
     <div className="bg-secondary">
@@ -97,6 +96,9 @@ const Navbar = () => {
               </li>
               <li>
                 <NavLink to="/upcoming-events">UpComing Events</NavLink>
+              </li>
+              <li>
+                <NavLink to="/about">About Us</NavLink>
               </li>
             </ul>
           </div>
@@ -132,6 +134,18 @@ const Navbar = () => {
                 }
               >
                 Upcoming Events
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  `lg:text-[20px] relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-green-800 after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                    isActive ? "font-bold text-green-800 after:w-full" : ""
+                  }`
+                }
+              >
+                About Us
               </NavLink>
             </li>
           </ul>

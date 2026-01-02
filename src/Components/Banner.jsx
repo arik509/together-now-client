@@ -24,7 +24,7 @@ const Banner = () => {
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center text-center bg-cover bg-center h-[70vh] rounded-lg shadow-md transition-colors duration-500"
+      className="relative flex flex-col items-center justify-center text-center bg-cover bg-center h-[70vh] rounded-lg shadow-md transition-colors duration-500 w-11/12 mx-auto"
       style={{ backgroundImage: `url(${bannerImage})` }}
     >
       <div className="absolute inset-0 bg-[#d9f7be] dark:bg-black/60 rounded-lg transition-colors duration-500"></div>
