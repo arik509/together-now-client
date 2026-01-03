@@ -17,6 +17,8 @@ import Error from "./Pages/Error.jsx";
 import About from "./Components/About.jsx";
 import Profile from "./Pages/Profile.jsx";
 import Blog from "./Pages/Blog.jsx";
+import Contact from "./Pages/Contact.jsx";
+import Privacy from "./Pages/Privacy.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,8 +38,16 @@ const router = createBrowserRouter([
         element: <EventDetails></EventDetails>,
       },
       {
+        path: "/contact",
+        Component: Contact
+      },
+      {
         path: "/blog",
         Component: Blog
+      },
+      {
+        path: "/privacy",
+        Component: Privacy
       },
       {
         path: "/dashboard",
