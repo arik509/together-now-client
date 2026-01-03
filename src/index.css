@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 @import "tailwindcss";
 
 @plugin "daisyui" {
@@ -10,22 +10,21 @@
   default: true;
   --color-primary: green;
   --color-secondary: #d9f7be;
-  --color-base-100: #d9f7be; 
-  --color-base-200: #a8cc7a; 
-  --color-base-300: #8ab353; 
+  --color-base-100: #d9f7be;
+  --color-base-200: #a8cc7a;
+  --color-base-300: #8ab353;
   --color-accent: black;
   --color-neutral: #ffffcc;
 }
 
-
 @plugin "daisyui/theme" {
   name: "dark";
-  --color-primary: #22c55e; 
+  --color-primary: #22c55e;
   --color-secondary: #1a1a1a;
-  --color-base-100: #0f172a; 
-  --color-base-200: #1e293b; 
+  --color-base-100: #0f172a;
+  --color-base-200: #1e293b;
   --color-base-300: #334155;
-  --color-neutral: #f8fafc; 
+  --color-neutral: #f8fafc;
   --color-accent: white;
   --color-neutral: #003366;
 }
@@ -33,7 +32,6 @@
 * {
   font-family: "Roboto Mono";
 }
-
 
 .button {
   position: relative;
@@ -68,7 +66,7 @@
   width: 100%;
   height: inherit;
   border-radius: inherit;
-  background: linear-gradient(
+  background: linear-linear(
     82.3deg,
     rgba(132, 204, 22, 1) 10.8%,
     rgba(22, 101, 52, 1) 94.3%
@@ -77,9 +75,7 @@
   z-index: 0;
 }
 
-
-
-/* From Uiverse.io by vinodjangid07 */ 
+/* From Uiverse.io by vinodjangid07 */
 .d-button {
   width: 50px;
   height: 50px;
@@ -92,14 +88,14 @@
   justify-content: center;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
   cursor: pointer;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   overflow: hidden;
   position: relative;
 }
 
 .svgIcon {
   width: 12px;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .svgIcon path {
@@ -109,14 +105,14 @@
 .d-button:hover {
   width: 140px;
   border-radius: 50px;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   background-color: rgb(255, 69, 69);
   align-items: center;
 }
 
 .d-button:hover .svgIcon {
   width: 50px;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   transform: translateY(60%);
 }
 
@@ -125,7 +121,7 @@
   top: -20px;
   content: "Delete";
   color: white;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   font-size: 2px;
 }
 
@@ -133,5 +129,5 @@
   font-size: 13px;
   opacity: 1;
   transform: translateY(30px);
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }

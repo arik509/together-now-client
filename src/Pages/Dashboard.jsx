@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { Link } from "react-router";
-import { Calendar, MapPin, Tag, Pencil, Trash2, Plus } from "lucide-react";
+import { Calendar, MapPin, Tag, Pencil, Trash2, Plus, Users, FileEdit, Menu, X } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast, ToastContainer } from "react-toastify";
@@ -21,7 +21,8 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("create");
-  
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   // Create Event States
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -264,411 +265,465 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="container mx-auto py-12 px-4">
-      <h1 className="text-4xl font-bold text-center mb-8 text-green-700">
-        My Dashboard
-      </h1>
+    <div className="flex min-h-screen bg-base-200">
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="lg:hidden fixed top-20 left-4 z-50 p-2 bg-green-700 text-white rounded-md shadow-lg"
+      >
+        {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
 
-      {/* Tab Navigation */}
-      <div className="flex justify-center mb-8">
-        <div className="tabs tabs-boxed bg-base-200">
-          <button
-            className={`tab tab-lg ${
-              activeTab === "create" ? "tab-active" : ""
-            }`}
-            onClick={() => setActiveTab("create")}
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Create Event
-          </button>
-          <button
-            className={`tab tab-lg ${
-              activeTab === "manage" ? "tab-active" : ""
-            }`}
-            onClick={() => setActiveTab("manage")}
-          >
-            <Pencil className="w-4 h-4 mr-2" />
-            Manage Events
-          </button>
-          <button
-            className={`tab tab-lg ${
-              activeTab === "joined" ? "tab-active" : ""
-            }`}
-            onClick={() => setActiveTab("joined")}
-          >
-            <Calendar className="w-4 h-4 mr-2" />
-            Joined Events
-          </button>
+      {/* Sidebar */}
+      <aside
+        className={`fixed lg:sticky top-0 left-0 h-screen bg-base-100 shadow-xl z-40 transition-transform duration-300 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 w-64`}
+      >
+        <div className="p-6 border-b border-green-700">
+          <h2 className="text-2xl font-bold text-green-700">Dashboard</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            {user?.displayName || "User"}
+          </p>
         </div>
-      </div>
 
-      {/* Tab Content */}
-      <div className="max-w-6xl mx-auto">
-        {/* Create Event Tab */}
-        {activeTab === "create" && (
-          <div className="max-w-xl mx-auto">
-            <h2 className="text-2xl font-semibold mb-6 text-green-700">
-              Create New Event
-            </h2>
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-6 bg-base-200 p-6 rounded shadow-md"
-            >
-              <div>
-                <label className="block mb-1 font-semibold" htmlFor="title">
-                  Event Title
-                </label>
-                <input
-                  id="title"
-                  type="text"
-                  required
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="input input-bordered w-full"
-                  placeholder="Enter event title"
-                />
-              </div>
-
-              <div>
-                <label
-                  className="block mb-1 font-semibold"
-                  htmlFor="description"
-                >
-                  Description
-                </label>
-                <textarea
-                  id="description"
-                  required
-                  rows={4}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="textarea textarea-bordered w-full"
-                  placeholder="Describe your event"
-                ></textarea>
-              </div>
-
-              <div>
-                <label className="block mb-1 font-semibold" htmlFor="eventType">
-                  Event Type
-                </label>
-                <select
-                  id="eventType"
-                  value={eventType}
-                  onChange={(e) => setEventType(e.target.value)}
-                  className="select select-bordered w-full"
-                >
-                  {EVENT_TYPES.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <label className="block mb-1 font-semibold" htmlFor="thumbnail">
-                  Thumbnail Image URL
-                </label>
-                <input
-                  id="thumbnail"
-                  type="url"
-                  value={thumbnail}
-                  onChange={(e) => setThumbnail(e.target.value)}
-                  className="input input-bordered w-full"
-                  placeholder="https://example.com/image.jpg"
-                />
-              </div>
-
-              <div>
-                <label className="block mb-1 font-semibold" htmlFor="location">
-                  Location
-                </label>
-                <input
-                  id="location"
-                  type="text"
-                  required
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  className="input input-bordered w-full"
-                  placeholder="Enter event location"
-                />
-              </div>
-
-              <div>
-                <label className="block mb-1 font-semibold" htmlFor="eventDate">
-                  Event Date
-                </label>
-                <DatePicker
-                  id="eventDate"
-                  selected={eventDate}
-                  onChange={(date) => setEventDate(date)}
-                  minDate={today}
-                  placeholderText="Select a future date"
-                  className="input input-bordered w-full"
-                  dateFormat="MMMM d, yyyy"
-                  required
-                />
-              </div>
-
+        <nav className="p-4">
+          <ul className="menu menu-compact flex flex-col gap-2">
+            <li>
               <button
-                type="submit"
-                className="btn btn-primary w-full"
-                disabled={loading}
+                onClick={() => {
+                  setActiveTab("create");
+                  setSidebarOpen(false);
+                }}
+                className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
+                  activeTab === "create"
+                    ? "bg-green-700 text-white font-semibold"
+                    : "hover:bg-base-200"
+                }`}
               >
-                {loading ? "Creating..." : "Create Event"}
+                <Plus className="w-5 h-5" />
+                <span>Create Event</span>
               </button>
-            </form>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  setActiveTab("manage");
+                  setSidebarOpen(false);
+                }}
+                className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
+                  activeTab === "manage"
+                    ? "bg-green-700 text-white font-semibold"
+                    : "hover:bg-base-200"
+                }`}
+              >
+                <FileEdit className="w-5 h-5" />
+                <span>Manage Events</span>
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  setActiveTab("joined");
+                  setSidebarOpen(false);
+                }}
+                className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
+                  activeTab === "joined"
+                    ? "bg-green-700 text-white font-semibold"
+                    : "hover:bg-base-200"
+                }`}
+              >
+                <Users className="w-5 h-5" />
+                <span>Joined Events</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <div className="absolute bottom-0 w-full p-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex items-center gap-3 p-3 bg-base-200 rounded-lg">
+            <div className="avatar">
+              <div className="w-10 rounded-full">
+                <img src={user?.photoURL || "https://via.placeholder.com/40"} alt="User" />
+              </div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium truncate">{user?.displayName || "User"}</p>
+              <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
+                {user?.email}
+              </p>
+            </div>
           </div>
-        )}
+        </div>
+      </aside>
 
-        {/* Manage Events Tab */}
-        {activeTab === "manage" && (
-          <div>
-            <h2 className="text-2xl font-semibold mb-6 text-green-700 text-center">
-              Manage My Events
-            </h2>
-            {manageLoading ? (
-              <div className="text-center py-12">
-                <div className="flex justify-center items-center space-x-2">
-                  <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce"></div>
-                  <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-100"></div>
-                  <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-200"></div>
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+        ></div>
+      )}
+
+      {/* Main Content */}
+      <main className="flex-1 p-6 lg:p-8 overflow-auto">
+        <div className="max-w-7xl mx-auto">
+          {/* Create Event Tab */}
+          {activeTab === "create" && (
+            <div className="max-w-2xl mx-auto">
+              <div className="flex items-center gap-3 mb-6">
+                <Plus className="w-8 h-8 text-green-700" />
+                <h1 className="text-3xl font-bold text-green-700">Create New Event</h1>
+              </div>
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-6 bg-base-100 p-6 rounded-lg shadow-md"
+              >
+                <div>
+                  <label className="block mb-2 font-semibold" htmlFor="title">
+                    Event Title
+                  </label>
+                  <input
+                    id="title"
+                    type="text"
+                    required
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="input input-bordered w-full"
+                    placeholder="Enter event title"
+                  />
                 </div>
-                <p className="mt-4 text-lg font-semibold">
-                  Loading your events...
-                </p>
-              </div>
-            ) : myEvents.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-xl text-gray-600 dark:text-gray-400">
-                  You haven't created any events yet!
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {myEvents.map((event) => (
-                  <div
-                    key={event._id}
-                    className="card bg-neutral shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
-                  >
-                    <figure className="h-48 overflow-hidden">
-                      <img
-                        src={
-                          event.thumbnail ||
-                          "https://via.placeholder.com/400x300?text=Event"
-                        }
-                        alt={event.title}
-                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                      />
-                    </figure>
-                    <div className="card-body">
-                      <div className="badge badge-primary mb-2">
-                        <Tag className="w-3 h-3 mr-1" />
-                        {event.eventType}
-                      </div>
-                      <h2 className="card-title text-xl font-bold mb-2">
-                        {event.title}
-                      </h2>
-                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
-                        <MapPin className="w-4 h-4 text-green-700" />
-                        <span className="text-sm text-accent">
-                          {event.location}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
-                        <Calendar className="w-4 h-4 text-green-700" />
-                        <span className="text-sm text-accent">
-                          {formatDate(event.eventDate)}
-                        </span>
-                      </div>
-                      <p className="text-sm text-accent mb-2 line-clamp-2">
-                        {event.description}
-                      </p>
 
-                      {editingEvent === event._id ? (
-                        <form
-                          className="mt-2 space-y-2"
-                          onSubmit={(e) => {
-                            e.preventDefault();
-                            handleUpdateEvent(event._id);
-                          }}
-                        >
-                          <input
-                            name="title"
-                            type="text"
-                            className="input input-bordered w-full mb-1"
-                            value={form.title}
-                            onChange={handleChange}
-                            placeholder="Title"
-                          />
-                          <textarea
-                            name="description"
-                            className="textarea textarea-bordered w-full mb-1"
-                            value={form.description}
-                            onChange={handleChange}
-                            placeholder="Description"
-                          />
-                          <input
-                            name="eventType"
-                            type="text"
-                            className="input input-bordered w-full mb-1"
-                            value={form.eventType}
-                            onChange={handleChange}
-                            placeholder="Event Type"
-                            readOnly
-                          />
-                          <input
-                            name="location"
-                            type="text"
-                            className="input input-bordered w-full mb-1"
-                            value={form.location}
-                            onChange={handleChange}
-                            placeholder="Location"
-                          />
-                          <input
-                            name="eventDate"
-                            type="datetime-local"
-                            className="input input-bordered w-full mb-1"
-                            value={form.eventDate?.slice(0, 16)}
-                            onChange={handleChange}
-                          />
-                          <input
-                            name="thumbnail"
-                            type="text"
-                            className="input input-bordered w-full mb-1"
-                            value={form.thumbnail}
-                            onChange={handleChange}
-                            placeholder="Thumbnail URL"
-                          />
-                          <div className="flex gap-2 mt-2">
+                <div>
+                  <label className="block mb-2 font-semibold" htmlFor="description">
+                    Description
+                  </label>
+                  <textarea
+                    id="description"
+                    required
+                    rows={4}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="textarea textarea-bordered w-full"
+                    placeholder="Describe your event"
+                  ></textarea>
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-semibold" htmlFor="eventType">
+                    Event Type
+                  </label>
+                  <select
+                    id="eventType"
+                    value={eventType}
+                    onChange={(e) => setEventType(e.target.value)}
+                    className="select select-bordered w-full"
+                  >
+                    {EVENT_TYPES.map((type) => (
+                      <option key={type} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-semibold" htmlFor="thumbnail">
+                    Thumbnail Image URL
+                  </label>
+                  <input
+                    id="thumbnail"
+                    type="url"
+                    value={thumbnail}
+                    onChange={(e) => setThumbnail(e.target.value)}
+                    className="input input-bordered w-full"
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-semibold" htmlFor="location">
+                    Location
+                  </label>
+                  <input
+                    id="location"
+                    type="text"
+                    required
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="input input-bordered w-full"
+                    placeholder="Enter event location"
+                  />
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-semibold" htmlFor="eventDate">
+                    Event Date
+                  </label>
+                  <DatePicker
+                    id="eventDate"
+                    selected={eventDate}
+                    onChange={(date) => setEventDate(date)}
+                    minDate={today}
+                    placeholderText="Select a future date"
+                    className="input input-bordered w-full"
+                    dateFormat="MMMM d, yyyy"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn btn-primary w-full"
+                  disabled={loading}
+                >
+                  {loading ? "Creating..." : "Create Event"}
+                </button>
+              </form>
+            </div>
+          )}
+
+          {/* Manage Events Tab */}
+          {activeTab === "manage" && (
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <FileEdit className="w-8 h-8 text-green-700" />
+                <h1 className="text-3xl font-bold text-green-700">Manage My Events</h1>
+              </div>
+              {manageLoading ? (
+                <div className="text-center py-12">
+                  <div className="flex justify-center items-center space-x-2">
+                    <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce"></div>
+                    <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-100"></div>
+                    <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-200"></div>
+                  </div>
+                  <p className="mt-4 text-lg font-semibold">Loading your events...</p>
+                </div>
+              ) : myEvents.length === 0 ? (
+                <div className="text-center py-12 bg-base-100 rounded-lg">
+                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                    You haven't created any events yet!
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {myEvents.map((event) => (
+                    <div
+                      key={event._id}
+                      className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
+                    >
+                      <figure className="h-48 overflow-hidden">
+                        <img
+                          src={
+                            event.thumbnail ||
+                            "https://via.placeholder.com/400x300?text=Event"
+                          }
+                          alt={event.title}
+                          className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                        />
+                      </figure>
+                      <div className="card-body">
+                        <div className="badge badge-primary mb-2">
+                          <Tag className="w-3 h-3 mr-1" />
+                          {event.eventType}
+                        </div>
+                        <h2 className="card-title text-xl font-bold mb-2">
+                          {event.title}
+                        </h2>
+                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
+                          <MapPin className="w-4 h-4 text-green-700" />
+                          <span className="text-sm text-accent">{event.location}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
+                          <Calendar className="w-4 h-4 text-green-700" />
+                          <span className="text-sm text-accent">
+                            {formatDate(event.eventDate)}
+                          </span>
+                        </div>
+                        <p className="text-sm text-accent mb-2 line-clamp-2">
+                          {event.description}
+                        </p>
+
+                        {editingEvent === event._id ? (
+                          <form
+                            className="mt-2 space-y-2"
+                            onSubmit={(e) => {
+                              e.preventDefault();
+                              handleUpdateEvent(event._id);
+                            }}
+                          >
+                            <input
+                              name="title"
+                              type="text"
+                              className="input input-bordered w-full mb-1"
+                              value={form.title}
+                              onChange={handleChange}
+                              placeholder="Title"
+                            />
+                            <textarea
+                              name="description"
+                              className="textarea textarea-bordered w-full mb-1"
+                              value={form.description}
+                              onChange={handleChange}
+                              placeholder="Description"
+                            />
+                            <input
+                              name="eventType"
+                              type="text"
+                              className="input input-bordered w-full mb-1"
+                              value={form.eventType}
+                              onChange={handleChange}
+                              placeholder="Event Type"
+                              readOnly
+                            />
+                            <input
+                              name="location"
+                              type="text"
+                              className="input input-bordered w-full mb-1"
+                              value={form.location}
+                              onChange={handleChange}
+                              placeholder="Location"
+                            />
+                            <input
+                              name="eventDate"
+                              type="datetime-local"
+                              className="input input-bordered w-full mb-1"
+                              value={form.eventDate?.slice(0, 16)}
+                              onChange={handleChange}
+                            />
+                            <input
+                              name="thumbnail"
+                              type="text"
+                              className="input input-bordered w-full mb-1"
+                              value={form.thumbnail}
+                              onChange={handleChange}
+                              placeholder="Thumbnail URL"
+                            />
+                            <div className="flex gap-2 mt-2">
+                              <button
+                                type="submit"
+                                disabled={updating}
+                                className="btn btn-outline flex-1"
+                              >
+                                Save
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-outline flex-1"
+                                onClick={() => setEditingEvent(null)}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </form>
+                        ) : (
+                          <div className="flex gap-3 mt-4 items-center justify-center">
                             <button
-                              type="submit"
-                              disabled={updating}
-                              className="btn btn-outline"
+                              className="btn btn-outline btn-circle btn-primary flex items-center gap-1"
+                              onClick={() => handleEditClick(event)}
                             >
-                              Save
+                              <Pencil className="w-5 h-5" />
                             </button>
+
                             <button
-                              type="button"
-                              className="btn btn-outline"
-                              onClick={() => setEditingEvent(null)}
+                              onClick={() => handleDeleteEvent(event._id)}
+                              className="d-button ml-10"
                             >
-                              Cancel
+                              <svg viewBox="0 0 448 512" className="svgIcon">
+                                <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                              </svg>
                             </button>
                           </div>
-                        </form>
-                      ) : (
-                        <div className="flex gap-3 mt-4 items-center justify-center">
-                          <button
-                            className="btn btn-outline btn-circle btn-primary flex items-center gap-1"
-                            onClick={() => handleEditClick(event)}
+                        )}
+                        <div className="card-actions justify-end mt-2">
+                          <Link
+                            to={`/event/${event._id}`}
+                            className="btn btn-primary w-full text-center"
                           >
-                            <Pencil className="w-5 h-5" />
-                          </button>
-
-                          <button
-                            onClick={() => handleDeleteEvent(event._id)}
-                            className="d-button ml-10"
-                          >
-                            <svg viewBox="0 0 448 512" className="svgIcon">
-                              <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
-                            </svg>
-                          </button>
+                            <span>View Event</span>
+                          </Link>
                         </div>
-                      )}
-                      <div className="card-actions justify-end mt-2">
-                        <Link
-                          to={`/event/${event._id}`}
-                          className="btn btn-primary w-full text-center"
-                        >
-                          <span>View Event</span>
-                        </Link>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Joined Events Tab */}
-        {activeTab === "joined" && (
-          <div>
-            <h2 className="text-2xl font-semibold mb-6 text-green-700 text-center">
-              My Joined Events
-            </h2>
-            {joinedLoading ? (
-              <div className="text-center py-12">
-                <div className="flex justify-center items-center space-x-2">
-                  <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce"></div>
-                  <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-100"></div>
-                  <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-200"></div>
+                  ))}
                 </div>
-                <p className="mt-4 text-lg font-semibold">
-                  Loading joined events...
-                </p>
+              )}
+            </div>
+          )}
+
+          {/* Joined Events Tab */}
+          {activeTab === "joined" && (
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <Users className="w-8 h-8 text-green-700" />
+                <h1 className="text-3xl font-bold text-green-700">My Joined Events</h1>
               </div>
-            ) : joinedEvents.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-xl text-gray-600 dark:text-gray-400">
-                  You haven't joined any events yet!
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {joinedEvents.map((event) => (
-                  <div
-                    key={event._id}
-                    className="card bg-neutral shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
-                  >
-                    <figure className="h-48 overflow-hidden">
-                      <img
-                        src={
-                          event.thumbnail ||
-                          "https://via.placeholder.com/400x300?text=Event"
-                        }
-                        alt={event.title}
-                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                      />
-                    </figure>
-                    <div className="card-body">
-                      <div className="badge badge-primary mb-2">
-                        <Tag className="w-3 h-3 mr-1" />
-                        {event.eventType}
-                      </div>
-                      <h2 className="card-title text-xl font-bold mb-2">
-                        {event.title}
-                      </h2>
-                      <div className="flex items-center gap-2 text-accent">
-                        <MapPin className="w-4 h-4 text-green-700" />
-                        <span className="text-sm">{event.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-accent mb-4">
-                        <Calendar className="w-4 h-4 text-green-700" />
-                        <span className="text-sm">
-                          {formatDate(event.eventDate)}
-                        </span>
-                      </div>
-                      <p className="text-sm text-accent mb-4 line-clamp-2">
-                        {event.description}
-                      </p>
-                      <div className="card-actions justify-end">
-                        <Link
-                          to={`/event/${event._id}`}
-                          className="btn btn-outline btn-primary w-full text-center"
-                        >
-                          <span>View Event</span>
-                        </Link>
+              {joinedLoading ? (
+                <div className="text-center py-12">
+                  <div className="flex justify-center items-center space-x-2">
+                    <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce"></div>
+                    <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-100"></div>
+                    <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-200"></div>
+                  </div>
+                  <p className="mt-4 text-lg font-semibold">Loading joined events...</p>
+                </div>
+              ) : joinedEvents.length === 0 ? (
+                <div className="text-center py-12 bg-base-100 rounded-lg">
+                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                    You haven't joined any events yet!
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {joinedEvents.map((event) => (
+                    <div
+                      key={event._id}
+                      className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden"
+                    >
+                      <figure className="h-48 overflow-hidden">
+                        <img
+                          src={
+                            event.thumbnail ||
+                            "https://via.placeholder.com/400x300?text=Event"
+                          }
+                          alt={event.title}
+                          className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                        />
+                      </figure>
+                      <div className="card-body">
+                        <div className="badge badge-primary mb-2">
+                          <Tag className="w-3 h-3 mr-1" />
+                          {event.eventType}
+                        </div>
+                        <h2 className="card-title text-xl font-bold mb-2">{event.title}</h2>
+                        <div className="flex items-center gap-2 text-accent">
+                          <MapPin className="w-4 h-4 text-green-700" />
+                          <span className="text-sm">{event.location}</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-accent mb-4">
+                          <Calendar className="w-4 h-4 text-green-700" />
+                          <span className="text-sm">{formatDate(event.eventDate)}</span>
+                        </div>
+                        <p className="text-sm text-accent mb-4 line-clamp-2">
+                          {event.description}
+                        </p>
+                        <div className="card-actions justify-end">
+                          <Link
+                            to={`/event/${event._id}`}
+                            className="btn btn-outline btn-primary w-full text-center"
+                          >
+                            <span>View Event</span>
+                          </Link>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </main>
 
       <ToastContainer position="top-center" />
     </div>

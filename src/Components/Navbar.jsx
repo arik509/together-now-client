@@ -68,7 +68,7 @@ const Navbar = () => {
 
   return (
     <div className="bg-secondary sticky top-0 z-50 shadow-md">
-      <div className="navbar w-full md:w-11/12 mx-auto p-1 md:p-3 lg:p-6">
+      <div className="navbar w-full md:w-11/12 mx-auto py-1 md:py-3 lg:py-6">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -95,10 +95,10 @@ const Navbar = () => {
                 <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <NavLink to="/upcoming-events">UpComing Events</NavLink>
+                <NavLink to="/upcoming-events">UpComing-Events</NavLink>
               </li>
               <li>
-                <NavLink to="/about">About Us</NavLink>
+                <NavLink to="/about">About-Us</NavLink>
               </li>
               {user && (
                 <li>
@@ -138,7 +138,7 @@ const Navbar = () => {
                   }`
                 }
               >
-                Upcoming Events
+                Upcoming-Events
               </NavLink>
             </li>
             <li>
@@ -150,7 +150,7 @@ const Navbar = () => {
                   }`
                 }
               >
-                About Us
+                About-Us
               </NavLink>
             </li>
             {user && (
