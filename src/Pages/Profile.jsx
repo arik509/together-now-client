@@ -39,7 +39,7 @@ const Profile = () => {
               {user.displayName || "User"}
             </h2>
 
-            <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
+            <div className="flex items-center gap-2 text-accent mb-4">
               <Mail className="w-5 h-5 text-green-700" />
               <span>{user.email}</span>
             </div>

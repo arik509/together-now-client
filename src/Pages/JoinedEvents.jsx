@@ -77,7 +77,7 @@ const JoinedEvents = () => {
 
       {joinedEvents.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-xl text-gray-600 dark:text-gray-400">
+          <p className="text-xl text-accent">
             You haven't joined any events yet!
           </p>
         </div>

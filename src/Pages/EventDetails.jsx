@@ -236,7 +236,7 @@ const EventDetails = () => {
         </div>
 
         {!user && (
-          <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-4">
+          <p className="text-center text-sm text-accent mt-4">
             Please{" "}
             <span
               onClick={() => navigate("/auth/login")}

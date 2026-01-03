@@ -159,7 +159,7 @@ const ManageEvents = () => {
 
       {myEvents.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-xl text-gray-600 dark:text-gray-400">
+          <p className="text-xl text-accent">
             You haven't created any events yet!
           </p>
         </div>
@@ -188,11 +188,11 @@ const ManageEvents = () => {
                 <h2 className="card-title text-xl font-bold mb-2">
                   {event.title}
                 </h2>
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
+                <div className="flex items-center gap-2 text-accent mb-2">
                   <MapPin className="w-4 h-4 text-green-700" />
                   <span className="text-sm text-accent">{event.location}</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
+                <div className="flex items-center gap-2 text-accent mb-4">
                   <Calendar className="w-4 h-4 text-green-700" />
                   <span className="text-sm text-accent">
                     {formatDate(event.eventDate)}

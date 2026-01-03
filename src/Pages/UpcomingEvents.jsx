@@ -153,9 +153,7 @@ const UpcomingEvents = () => {
 
       {(filter !== "All" || searchQuery) && (
         <div className="flex flex-wrap gap-2 justify-center mb-6">
-          <span className="text-sm text-accent">
-            Active filters:
-          </span>
+          <span className="text-sm text-accent">Active filters:</span>
           {filter !== "All" && (
             <span className="badge badge-primary gap-2">
               <p className="text-accent">Type: {filter}</p>
@@ -178,9 +176,7 @@ const UpcomingEvents = () => {
       {events.length === 0 ? (
         <div className="text-center py-12">
           <div className="text-6xl mb-4">🔍</div>
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-2">
-            No events found
-          </p>
+          <p className="text-xl text-accent mb-2">No events found</p>
           <p className="text-sm text-gray-500 dark:text-gray-500">
             {searchQuery || filter !== "All"
               ? "Try adjusting your search or filters"

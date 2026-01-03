@@ -1,7 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { Link } from "react-router";
-import { Calendar, MapPin, Tag, Pencil, Trash2, Plus, Users, FileEdit, Menu, X } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Tag,
+  Pencil,
+  Trash2,
+  Plus,
+  Users,
+  FileEdit,
+  Menu,
+  X,
+} from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast, ToastContainer } from "react-toastify";
@@ -282,7 +293,7 @@ const Dashboard = () => {
       >
         <div className="p-6 border-b border-green-700">
           <h2 className="text-2xl font-bold text-green-700">Dashboard</h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm text-accent mt-1">
             {user?.displayName || "User"}
           </p>
         </div>
@@ -344,14 +355,17 @@ const Dashboard = () => {
           <div className="flex items-center gap-3 p-3 bg-base-200 rounded-lg">
             <div className="avatar">
               <div className="w-10 rounded-full">
-                <img src={user?.photoURL || "https://via.placeholder.com/40"} alt="User" />
+                <img
+                  src={user?.photoURL || "https://via.placeholder.com/40"}
+                  alt="User"
+                />
               </div>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{user?.displayName || "User"}</p>
-              <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
-                {user?.email}
+              <p className="text-sm font-medium truncate">
+                {user?.displayName || "User"}
               </p>
+              <p className="text-xs text-accent truncate">{user?.email}</p>
             </div>
           </div>
         </div>
@@ -373,7 +387,9 @@ const Dashboard = () => {
             <div className="max-w-2xl mx-auto">
               <div className="flex items-center gap-3 mb-6">
                 <Plus className="w-8 h-8 text-green-700" />
-                <h1 className="text-3xl font-bold text-green-700">Create New Event</h1>
+                <h1 className="text-3xl font-bold text-green-700">
+                  Create New Event
+                </h1>
               </div>
               <form
                 onSubmit={handleSubmit}
@@ -395,7 +411,10 @@ const Dashboard = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 font-semibold" htmlFor="description">
+                  <label
+                    className="block mb-2 font-semibold"
+                    htmlFor="description"
+                  >
                     Description
                   </label>
                   <textarea
@@ -410,7 +429,10 @@ const Dashboard = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 font-semibold" htmlFor="eventType">
+                  <label
+                    className="block mb-2 font-semibold"
+                    htmlFor="eventType"
+                  >
                     Event Type
                   </label>
                   <select
@@ -428,7 +450,10 @@ const Dashboard = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 font-semibold" htmlFor="thumbnail">
+                  <label
+                    className="block mb-2 font-semibold"
+                    htmlFor="thumbnail"
+                  >
                     Thumbnail Image URL
                   </label>
                   <input
@@ -442,7 +467,10 @@ const Dashboard = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 font-semibold" htmlFor="location">
+                  <label
+                    className="block mb-2 font-semibold"
+                    htmlFor="location"
+                  >
                     Location
                   </label>
                   <input
@@ -457,7 +485,10 @@ const Dashboard = () => {
                 </div>
 
                 <div>
-                  <label className="block mb-2 font-semibold" htmlFor="eventDate">
+                  <label
+                    className="block mb-2 font-semibold"
+                    htmlFor="eventDate"
+                  >
                     Event Date
                   </label>
                   <DatePicker
@@ -488,7 +519,9 @@ const Dashboard = () => {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <FileEdit className="w-8 h-8 text-green-700" />
-                <h1 className="text-3xl font-bold text-green-700">Manage My Events</h1>
+                <h1 className="text-3xl font-bold text-green-700">
+                  Manage My Events
+                </h1>
               </div>
               {manageLoading ? (
                 <div className="text-center py-12">
@@ -497,11 +530,13 @@ const Dashboard = () => {
                     <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-100"></div>
                     <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-200"></div>
                   </div>
-                  <p className="mt-4 text-lg font-semibold">Loading your events...</p>
+                  <p className="mt-4 text-lg font-semibold">
+                    Loading your events...
+                  </p>
                 </div>
               ) : myEvents.length === 0 ? (
                 <div className="text-center py-12 bg-base-100 rounded-lg">
-                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                  <p className="text-xl text-accent">
                     You haven't created any events yet!
                   </p>
                 </div>
@@ -530,11 +565,13 @@ const Dashboard = () => {
                         <h2 className="card-title text-xl font-bold mb-2">
                           {event.title}
                         </h2>
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-2">
+                        <div className="flex items-center gap-2 text-accent mb-2">
                           <MapPin className="w-4 h-4 text-green-700" />
-                          <span className="text-sm text-accent">{event.location}</span>
+                          <span className="text-sm text-accent">
+                            {event.location}
+                          </span>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
+                        <div className="flex items-center gap-2 text-accent mb-4">
                           <Calendar className="w-4 h-4 text-green-700" />
                           <span className="text-sm text-accent">
                             {formatDate(event.eventDate)}
@@ -656,7 +693,9 @@ const Dashboard = () => {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <Users className="w-8 h-8 text-green-700" />
-                <h1 className="text-3xl font-bold text-green-700">My Joined Events</h1>
+                <h1 className="text-3xl font-bold text-green-700">
+                  My Joined Events
+                </h1>
               </div>
               {joinedLoading ? (
                 <div className="text-center py-12">
@@ -665,11 +704,13 @@ const Dashboard = () => {
                     <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-100"></div>
                     <div className="w-4 h-4 bg-green-700 rounded-full animate-bounce delay-200"></div>
                   </div>
-                  <p className="mt-4 text-lg font-semibold">Loading joined events...</p>
+                  <p className="mt-4 text-lg font-semibold">
+                    Loading joined events...
+                  </p>
                 </div>
               ) : joinedEvents.length === 0 ? (
                 <div className="text-center py-12 bg-base-100 rounded-lg">
-                  <p className="text-xl text-gray-600 dark:text-gray-400">
+                  <p className="text-xl text-accent">
                     You haven't joined any events yet!
                   </p>
                 </div>
@@ -695,14 +736,18 @@ const Dashboard = () => {
                           <Tag className="w-3 h-3 mr-1" />
                           {event.eventType}
                         </div>
-                        <h2 className="card-title text-xl font-bold mb-2">{event.title}</h2>
+                        <h2 className="card-title text-xl font-bold mb-2">
+                          {event.title}
+                        </h2>
                         <div className="flex items-center gap-2 text-accent">
                           <MapPin className="w-4 h-4 text-green-700" />
                           <span className="text-sm">{event.location}</span>
                         </div>
                         <div className="flex items-center gap-2 text-accent mb-4">
                           <Calendar className="w-4 h-4 text-green-700" />
-                          <span className="text-sm">{formatDate(event.eventDate)}</span>
+                          <span className="text-sm">
+                            {formatDate(event.eventDate)}
+                          </span>
                         </div>
                         <p className="text-sm text-accent mb-4 line-clamp-2">
                           {event.description}
