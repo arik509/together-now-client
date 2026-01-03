@@ -1,5 +1,5 @@
-import React from 'react';
-import { Quote } from 'lucide-react';
+import React from "react";
+import { Quote } from "lucide-react";
 
 const TestimonialsSection = () => {
   const testimonials = [
@@ -30,8 +30,10 @@ const TestimonialsSection = () => {
     <section className="py-16 bg-base-200">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-green-700 mb-4">What Our Community Says</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-green-700 mb-4">
+            What Our Community Says
+          </h2>
+          <p className="text-lg text-accent max-w-2xl mx-auto">
             Real stories from real people making real change
           </p>
         </div>
@@ -43,7 +45,7 @@ const TestimonialsSection = () => {
               className="bg-base-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 relative"
             >
               <Quote className="absolute top-4 right-4 w-10 h-10 text-green-200 dark:text-green-800" />
-              
+
               <div className="flex items-center mb-4">
                 <img
                   src={testimonial.image}
@@ -52,16 +54,20 @@ const TestimonialsSection = () => {
                 />
                 <div>
                   <h4 className="font-bold text-lg">{testimonial.name}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</p>
+                  <p className="text-sm text-accent">{testimonial.role}</p>
                   <div className="flex mt-1">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-yellow-500">★</span>
+                      <span key={i} className="text-yellow-500">
+                        ★
+                      </span>
                     ))}
                   </div>
                 </div>
               </div>
-              
-              <p className="text-gray-700 dark:text-gray-300 italic">"{testimonial.text}"</p>
+
+              <p className="text-accent italic">
+                "{testimonial.text}"
+              </p>
             </div>
           ))}
         </div>

@@ -1,6 +1,12 @@
-import React from 'react';
-import { Trash2, TreePine, Heart, Megaphone, GraduationCap } from 'lucide-react';
-import { Link } from 'react-router';
+import React from "react";
+import {
+  Trash2,
+  TreePine,
+  Heart,
+  Megaphone,
+  GraduationCap,
+} from "lucide-react";
+import { Link } from "react-router";
 
 const EventCategoriesSection = () => {
   const categories = [
@@ -50,8 +56,10 @@ const EventCategoriesSection = () => {
     <section className="py-16 bg-base-100">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-green-700 mb-4">Event Categories</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-green-700 mb-4">
+            Event Categories
+          </h2>
+          <p className="text-lg text-accent max-w-2xl mx-auto">
             Find the perfect way to contribute to your community
           </p>
         </div>
@@ -63,14 +71,20 @@ const EventCategoriesSection = () => {
               to="/upcoming-events"
               className="group bg-base-200 p-6 rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
             >
-              <div className={`flex justify-center mb-4 ${category.bgColor} ${category.color} p-4 rounded-full w-20 h-20 mx-auto group-hover:scale-110 transition-transform duration-300`}>
+              <div
+                className={`flex justify-center mb-4 ${category.bgColor} ${category.color} p-4 rounded-full w-20 h-20 mx-auto group-hover:scale-110 transition-transform duration-300`}
+              >
                 {category.icon}
               </div>
-              <h3 className="text-xl font-bold text-center mb-2">{category.title}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-3">
+              <h3 className="text-xl font-bold text-center mb-2">
+                {category.title}
+              </h3>
+              <p className="text-sm text-accent text-center mb-3">
                 {category.description}
               </p>
-              <p className="text-center text-green-700 font-semibold text-sm">{category.count}</p>
+              <p className="text-center text-green-700 font-semibold text-sm">
+                {category.count}
+              </p>
             </Link>
           ))}
         </div>
