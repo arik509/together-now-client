@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import logo from "../assets/Together Now.png";
 import { Link, NavLink } from "react-router";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, User, LogOut, LayoutDashboard } from "lucide-react";
 import userIcon from "../assets/download.png";
 import { AuthContext } from "../Context/AuthContext";
 import Swal from "sweetalert2";
@@ -95,10 +95,19 @@ const Navbar = () => {
                 <NavLink to="/">Home</NavLink>
               </li>
               <li>
-                <NavLink to="/upcoming-events">UpComing-Events</NavLink>
+                <NavLink to="/upcoming-events">Upcoming Events</NavLink>
               </li>
               <li>
-                <NavLink to="/about">About-Us</NavLink>
+                <NavLink to="/about">About Us</NavLink>
+              </li>
+              <li>
+                <NavLink to="/blog">Blog</NavLink>
+              </li>
+              <li>
+                <NavLink to="/contact">Contact</NavLink>
+              </li>
+              <li>
+                <NavLink to="/privacy">Privacy & Terms</NavLink>
               </li>
               {user && (
                 <li>
@@ -138,7 +147,7 @@ const Navbar = () => {
                   }`
                 }
               >
-                Upcoming-Events
+                Upcoming Events
               </NavLink>
             </li>
             <li>
@@ -150,23 +159,45 @@ const Navbar = () => {
                   }`
                 }
               >
-                About-Us
+                About Us
               </NavLink>
             </li>
-            {user && (
-              <li>
-                <NavLink
-                  to="/dashboard"
-                  className={({ isActive }) =>
-                    `lg:text-[20px] relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-green-800 after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
-                      isActive ? "font-bold text-green-800 after:w-full" : ""
-                    }`
-                  }
-                >
-                  Dashboard
-                </NavLink>
-              </li>
-            )}
+            <li>
+              <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                  `lg:text-[20px] relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-green-800 after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                    isActive ? "font-bold text-green-800 after:w-full" : ""
+                  }`
+                }
+              >
+                Blog
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  `lg:text-[20px] relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-green-800 after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                    isActive ? "font-bold text-green-800 after:w-full" : ""
+                  }`
+                }
+              >
+                Contact
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/privacy"
+                className={({ isActive }) =>
+                  `lg:text-[20px] relative after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-green-800 after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                    isActive ? "font-bold text-green-800 after:w-full" : ""
+                  }`
+                }
+              >
+                Privacy & Terms
+              </NavLink>
+            </li>
           </ul>
         </div>
 
@@ -184,47 +215,60 @@ const Navbar = () => {
           </button>
 
           {user ? (
-            <>
-              <div className="relative" ref={dropdownRef}>
-                <div
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  title={user.displayName || "User"}
-                  className="cursor-pointer"
-                >
-                  <img
-                    src={user.photoURL || userIcon}
-                    alt={user.displayName || "User"}
-                    className="w-6 md:w-10 h-6 md:h-10 rounded-full border-2 border-green-700 dark:border-green-400"
-                  />
-                </div>
-
-                {dropdownOpen && (
-                  <ul className="absolute right-0 mt-2 w-48 bg-base-100 border border-green-700 dark:border-green-400 rounded shadow-lg z-50">
-                    <li>
-                      <Link
-                        to="/profile"
-                        className="block px-4 py-2 hover:bg-green-100 dark:hover:bg-green-700"
-                        onClick={() => setDropdownOpen(false)}
-                      >
-                        My Profile
-                      </Link>
-                    </li>
-                  </ul>
-                )}
+            <div className="relative" ref={dropdownRef}>
+              <div
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                title={user.displayName || "User"}
+                className="cursor-pointer"
+              >
+                <img
+                  src={user.photoURL || userIcon}
+                  alt={user.displayName || "User"}
+                  className="w-8 md:w-12 h-8 md:h-12 rounded-full border-2 border-green-700 dark:border-green-400 hover:scale-110 transition-transform duration-200"
+                />
               </div>
 
-              <button
-                onClick={handleLogout}
-                className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl btn-primary"
-              >
-                <span className=" cursor-pointer ">Log Out</span>
-              </button>
-            </>
+              {dropdownOpen && (
+                <ul className="absolute right-0 mt-2 w-52 bg-base-100 border-2 border-green-700 dark:border-green-400 rounded-lg shadow-xl z-50 overflow-hidden">
+                  <li className="border-b border-base-300 px-4 py-3 bg-base-200">
+                    <p className="font-bold text-sm truncate">{user.displayName || "User"}</p>
+                    <p className="text-xs text-accent truncate">{user.email}</p>
+                  </li>
+                  <li>
+                    <Link
+                      to="/profile"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-green-100 dark:hover:bg-green-900 transition-colors"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      <User className="w-4 h-4 text-green-700" />
+                      <span>My Profile</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard"
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-green-100 dark:hover:bg-green-900 transition-colors"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      <LayoutDashboard className="w-4 h-4 text-green-700" />
+                      <span>Dashboard</span>
+                    </Link>
+                  </li>
+                  <li className="border-t border-base-300">
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-red-100 dark:hover:bg-red-900 transition-colors w-full text-left text-red-600"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Log Out</span>
+                    </button>
+                  </li>
+                </ul>
+              )}
+            </div>
           ) : (
             <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl btn-primary">
-              <Link to="/auth/login" className="">
-                Log In
-              </Link>
+              <Link to="/auth/login">Log In</Link>
             </button>
           )}
         </div>

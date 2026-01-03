@@ -16,6 +16,7 @@ import PrivateRoute from "./Context/PrivateRoute.jsx";
 import Error from "./Pages/Error.jsx";
 import About from "./Components/About.jsx";
 import Profile from "./Pages/Profile.jsx";
+import Blog from "./Pages/Blog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/event/:id",
         element: <EventDetails></EventDetails>,
+      },
+      {
+        path: "/blog",
+        Component: Blog
       },
       {
         path: "/dashboard",
