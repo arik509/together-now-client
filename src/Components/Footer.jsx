@@ -24,17 +24,26 @@ const Footer = () => (
               <h3 className="font-bold mb-2">About</h3>
               <ul className="space-y-1 text-[12px] md:text-[16px] text-accent">
                 <li>
-                  <Link to="/about" className="hover:text-green-600 transition-colors">
+                  <Link
+                    to="/about"
+                    className="hover:text-green-600 transition-colors"
+                  >
                     Who We Are
                   </Link>
                 </li>
                 <li>
-                  <Link to="/about" className="hover:text-green-600 transition-colors">
+                  <Link
+                    to="/about"
+                    className="hover:text-green-600 transition-colors"
+                  >
                     Our Story
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" className="hover:text-green-600 transition-colors">
+                  <Link
+                    to="/"
+                    className="hover:text-green-600 transition-colors"
+                  >
                     Gallery
                   </Link>
                 </li>
@@ -45,17 +54,26 @@ const Footer = () => (
               <h3 className="font-bold mb-2">Service</h3>
               <ul className="space-y-1 text-[12px] md:text-[16px] text-accent">
                 <li>
-                  <Link to="/upcoming-events" className="hover:text-green-600 transition-colors">
+                  <Link
+                    to="/upcoming-events"
+                    className="hover:text-green-600 transition-colors"
+                  >
                     Nature
                   </Link>
                 </li>
                 <li>
-                  <Link to="/upcoming-events" className="hover:text-green-600 transition-colors">
+                  <Link
+                    to="/upcoming-events"
+                    className="hover:text-green-600 transition-colors"
+                  >
                     Donation
                   </Link>
                 </li>
                 <li>
-                  <Link to="/upcoming-events" className="hover:text-green-600 transition-colors">
+                  <Link
+                    to="/upcoming-events"
+                    className="hover:text-green-600 transition-colors"
+                  >
                     Action
                   </Link>
                 </li>
@@ -65,14 +83,29 @@ const Footer = () => (
             <div className="text-primary">
               <h3 className="font-bold mb-2">Policies</h3>
               <ul className="space-y-1 text-[12px] md:text-[16px] text-accent">
-                <li className="hover:text-green-600 transition-colors cursor-pointer">
-                  Terms & Conditions
+                <li>
+                  <Link
+                    to="/privacy"
+                    className="hover:text-green-600 transition-colors cursor-pointer"
+                  >
+                    Terms & Conditions
+                  </Link>
                 </li>
-                <li className="hover:text-green-600 transition-colors cursor-pointer">
-                  Privacy Policy
+                <li>
+                  <Link
+                    to="/privacy"
+                    className="hover:text-green-600 transition-colors cursor-pointer"
+                  >
+                    Privacy Policy
+                  </Link>
                 </li>
-                <li className="hover:text-green-600 transition-colors cursor-pointer">
-                  Cookie Policy
+                <li>
+                  <Link
+                    to="/privacy"
+                    className="hover:text-green-600 transition-colors cursor-pointer"
+                  >
+                    Privacy Policy
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -86,19 +119,13 @@ const Footer = () => (
                 </li>
                 <li className="flex items-center gap-2">
                   <Inbox size={16} className="shrink-0" />
-                  <a
-                    href=""
-                    className="hover:text-green-600 transition-colors"
-                  >
+                  <a href="" className="hover:text-green-600 transition-colors">
                     to.now@gmail.com
                   </a>
                 </li>
                 <li className="flex items-center gap-2">
                   <PhoneIcon size={16} className="shrink-0" />
-                  <a
-                    href=""
-                    className="hover:text-green-600 transition-colors"
-                  >
+                  <a href="" className="hover:text-green-600 transition-colors">
                     +880 1511 515 555
                   </a>
                 </li>

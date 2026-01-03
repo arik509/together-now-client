@@ -11,7 +11,11 @@ import AuthLayout from "./Layouts/AuthLayout.jsx";
 import Login from "./Pages/Login.jsx";
 import Registration from "./Pages/Register.jsx";
 import AuthProvider from "./Context/AuthProvider.jsx";
-import Dashboard from "./Pages/Dashboard.jsx";
+import DashboardLayout from "./Layouts/DashboardLayout.jsx";
+import DashboardHome from "./Pages/DashboardHome.jsx";
+import CreateEvent from "./Pages/CreateEvent.jsx";
+import ManageEvents from "./Pages/ManageEvents.jsx";
+import JoinedEvents from "./Pages/JoinedEvents.jsx";
 import PrivateRoute from "./Context/PrivateRoute.jsx";
 import Error from "./Pages/Error.jsx";
 import About from "./Components/About.jsx";
@@ -39,23 +43,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/contact",
-        Component: Contact
+        element: <Contact></Contact>,
       },
       {
         path: "/blog",
-        Component: Blog
+        element: <Blog></Blog>,
       },
       {
         path: "/privacy",
-        Component: Privacy
-      },
-      {
-        path: "/dashboard",
-        element: (
-          <PrivateRoute>
-            <Dashboard></Dashboard>
-          </PrivateRoute>
-        ),
+        element: <Privacy></Privacy>,
       },
       {
         path: "/profile",
@@ -82,6 +78,33 @@ const router = createBrowserRouter([
       {
         path: "/auth/register",
         element: <Registration></Registration>,
+      },
+    ],
+  },
+  // Protected Dashboard Routes with Dedicated Layout
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <DashboardHome></DashboardHome>,
+      },
+      {
+        path: "create-event",
+        element: <CreateEvent></CreateEvent>,
+      },
+      {
+        path: "manage-events",
+        element: <ManageEvents></ManageEvents>,
+      },
+      {
+        path: "joined-events",
+        element: <JoinedEvents></JoinedEvents>,
       },
     ],
   },
