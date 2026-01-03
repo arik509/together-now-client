@@ -5,6 +5,8 @@ import GallerySection from '../Components/GallerySection';
 import NewsletterSection from '../Components/NewsletterSection';
 import StatisticsSection from '../Components/StatisticsSection';
 import HowItWorksSection from '../Components/HowItWorksSection';
+import EventCategoriesSection from '../Components/EventCategoriesSection';
+import TestimonialsSection from '../Components/TestimonialsSection';
 
 const Home = () => {
     return (
@@ -12,6 +14,8 @@ const Home = () => {
             <Banner></Banner>
             <StatisticsSection></StatisticsSection>
             <HowItWorksSection></HowItWorksSection>
+            <EventCategoriesSection></EventCategoriesSection>
+            <TestimonialsSection></TestimonialsSection>
             <FeatureSection></FeatureSection>
             <GallerySection></GallerySection>
             <NewsletterSection></NewsletterSection>
