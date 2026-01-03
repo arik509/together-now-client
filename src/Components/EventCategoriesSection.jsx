@@ -54,7 +54,7 @@ const EventCategoriesSection = () => {
 
   return (
     <section className="py-16 bg-base-100">
-      <div className="container mx-auto px-4">
+      <div className="w-11/12 mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-green-700 mb-4">
             Event Categories

@@ -89,7 +89,7 @@ const FeatureSection = () => {
       {/* <div className="absolute top-0 left-0 w-96 h-96 bg-green-200 dark:bg-green-900 rounded-full filter blur-3xl opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-200 dark:bg-emerald-900 rounded-full filter blur-3xl opacity-20 translate-x-1/2 translate-y-1/2"></div> */}
 
-      <div className="w-11/12 mx-auto px-4 relative z-10">
+      <div className="w-11/12 mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-block mb-4">
