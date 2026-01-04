@@ -104,7 +104,7 @@ const Footer = () => (
                     to="/privacy"
                     className="hover:text-green-600 transition-colors cursor-pointer"
                   >
-                    Privacy Policy
+                    Cookie Policy
                   </Link>
                 </li>
               </ul>
